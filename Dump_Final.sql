@@ -99,12 +99,12 @@ DROP TABLE IF EXISTS `nota`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `nota` (
-  `nota1` float NOT NULL,
-  `nota2` float NOT NULL,
-  `media` float DEFAULT NULL,
+  `nota1` float(2,1) NOT NULL,
+  `nota2` float(2,1) NOT NULL,
   `idnota` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fkaluno` int(11) DEFAULT NULL,
   PRIMARY KEY (`idnota`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -149,4 +149,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-07 22:24:59
+-- Dump completed on 2019-06-07 23:54:30
