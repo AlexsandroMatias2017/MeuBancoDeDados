@@ -92,6 +92,22 @@ INSERT INTO `disciplina` VALUES (1,'Estrutura de Dados',65),(2,'Banco de Dados 1
 UNLOCK TABLES;
 
 --
+-- Temporary table structure for view `medias`
+--
+
+DROP TABLE IF EXISTS `medias`;
+/*!50001 DROP VIEW IF EXISTS `medias`*/;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+/*!50001 CREATE VIEW `medias` AS SELECT 
+ 1 AS `a`,
+ 1 AS `d`,
+ 1 AS `nota1`,
+ 1 AS `nota2`,
+ 1 AS `media`*/;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `nota`
 --
 
@@ -107,7 +123,7 @@ CREATE TABLE `nota` (
   PRIMARY KEY (`idnota`),
   KEY `fk_nota_1_idx` (`fkdisciplina`),
   KEY `fk_nota_2_idx` (`fkaluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -116,7 +132,7 @@ CREATE TABLE `nota` (
 
 LOCK TABLES `nota` WRITE;
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
-INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10);
+INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10),(8.5,5.5,23,2,1);
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -143,6 +159,24 @@ LOCK TABLES `professor` WRITE;
 INSERT INTO `professor` VALUES (1,'Anderson Moreira'),(2,'Paulo Abadie'),(3,'Marcos André'),(4,'Renata Dantas'),(5,'Aida Ferreira'),(6,'Renata Freire'),(7,'Rafael Roque'),(8,'Marco Domingues'),(9,'Paulo Gonçalves'),(10,'Fernanda Celci'),(11,'Uribatan Ramos');
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Final view structure for view `medias`
+--
+
+/*!50001 DROP VIEW IF EXISTS `medias`*/;
+/*!50001 SET @saved_cs_client          = @@character_set_client */;
+/*!50001 SET @saved_cs_results         = @@character_set_results */;
+/*!50001 SET @saved_col_connection     = @@collation_connection */;
+/*!50001 SET character_set_client      = utf8 */;
+/*!50001 SET character_set_results     = utf8 */;
+/*!50001 SET collation_connection      = utf8_general_ci */;
+/*!50001 CREATE ALGORITHM=UNDEFINED */
+/*!50013 DEFINER=`matias`@`localhost` SQL SECURITY DEFINER */
+/*!50001 VIEW `medias` AS select `aluno`.`nome` AS `a`,`disciplina`.`nome` AS `d`,`nota`.`nota1` AS `nota1`,`nota`.`nota2` AS `nota2`,((`nota`.`nota1` + `nota`.`nota2`) / 2) AS `media` from ((`nota` join `disciplina` on((`disciplina`.`iddisciplina` = `nota`.`fkdisciplina`))) join `aluno` on((`aluno`.`idaluno` = `nota`.`fkaluno`))) order by ((`nota`.`nota1` + `nota`.`nota2`) / 2) desc */;
+/*!50001 SET character_set_client      = @saved_cs_client */;
+/*!50001 SET character_set_results     = @saved_cs_results */;
+/*!50001 SET collation_connection      = @saved_col_connection */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -153,4 +187,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-09 12:55:05
+-- Dump completed on 2019-06-11  0:05:33
