@@ -123,7 +123,11 @@ CREATE TABLE `nota` (
   PRIMARY KEY (`idnota`),
   KEY `fk_nota_1_idx` (`fkdisciplina`),
   KEY `fk_nota_2_idx` (`fkaluno`)
+<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+=======
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
+>>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -132,7 +136,11 @@ CREATE TABLE `nota` (
 
 LOCK TABLES `nota` WRITE;
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
+<<<<<<< HEAD
 INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10),(8.5,5.5,23,2,1);
+=======
+INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10);
+>>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -187,4 +195,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
 -- Dump completed on 2019-06-11  0:05:33
+=======
+-- Dump completed on 2019-06-09 12:55:05
+>>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
