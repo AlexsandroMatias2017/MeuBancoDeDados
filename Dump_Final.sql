@@ -76,6 +76,7 @@ CREATE TABLE `disciplina` (
   `iddisciplina` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(45) NOT NULL,
   `cargahoraria` int(11) DEFAULT NULL,
+  `fkprofessor` int(10) DEFAULT NULL,
   PRIMARY KEY (`iddisciplina`),
   UNIQUE KEY `nome_UNIQUE` (`nome`)
 ) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8;
@@ -87,7 +88,7 @@ CREATE TABLE `disciplina` (
 
 LOCK TABLES `disciplina` WRITE;
 /*!40000 ALTER TABLE `disciplina` DISABLE KEYS */;
-INSERT INTO `disciplina` VALUES (1,'Estrutura de Dados',65),(2,'Banco de Dados 1',60),(3,'Banco de Dados 2',50),(4,'Arquitetura de Computadores',40),(5,'Sistema Operacionais',45),(6,'Português Instrumental',30),(7,'Inglês Instrumental',25),(8,'Programação Orientada a Objetos',90),(9,'Desenvolvimento Web 1',70),(10,'Desenvolvimento Web 2',70),(11,'Cálculo 1',120),(12,'Cálculo 2',100),(13,'Cálculo 3',85),(14,'Redes 1',65),(15,'Redes 2',55),(16,'Sistemas Embarcados',45),(17,'LIBRAS',30),(18,'Introdução à Programação',120),(19,'Ética Profissional',25),(20,'Cálculo Numérico',60),(21,'Geometria Analítica',NULL);
+INSERT INTO `disciplina` VALUES (1,'Estrutura de Dados',65,NULL),(2,'Banco de Dados 1',60,NULL),(3,'Banco de Dados 2',50,NULL),(4,'Arquitetura de Computadores',40,NULL),(5,'Sistema Operacionais',45,NULL),(6,'Português Instrumental',30,NULL),(7,'Inglês Instrumental',25,NULL),(8,'Programação Orientada a Objetos',90,NULL),(9,'Desenvolvimento Web 1',70,NULL),(10,'Desenvolvimento Web 2',70,NULL),(11,'Cálculo 1',120,NULL),(12,'Cálculo 2',100,NULL),(13,'Cálculo 3',85,NULL),(14,'Redes 1',65,NULL),(15,'Redes 2',55,NULL),(16,'Sistemas Embarcados',45,NULL),(17,'LIBRAS',30,NULL),(18,'Introdução à Programação',120,NULL),(19,'Ética Profissional',25,NULL),(20,'Cálculo Numérico',60,NULL),(21,'Geometria Analítica',NULL,NULL);
 /*!40000 ALTER TABLE `disciplina` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -123,11 +124,7 @@ CREATE TABLE `nota` (
   PRIMARY KEY (`idnota`),
   KEY `fk_nota_1_idx` (`fkdisciplina`),
   KEY `fk_nota_2_idx` (`fkaluno`)
-<<<<<<< HEAD
 ) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-=======
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
->>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -136,11 +133,7 @@ CREATE TABLE `nota` (
 
 LOCK TABLES `nota` WRITE;
 /*!40000 ALTER TABLE `nota` DISABLE KEYS */;
-<<<<<<< HEAD
 INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10),(8.5,5.5,23,2,1);
-=======
-INSERT INTO `nota` VALUES (9.0,8.0,2,4,4),(8.5,6.0,3,1,1),(3.0,7.0,4,3,1),(5.0,5.5,5,3,5),(6.0,9.9,6,3,6),(6.0,4.9,7,4,10),(1.0,6.0,8,4,12),(9.9,7.0,9,5,20),(7.0,8.0,10,9,17),(8.0,9.0,11,7,7),(9.0,1.0,12,12,7),(5.0,2.0,13,11,8),(6.0,7.0,14,10,10),(4.0,8.5,15,10,11),(8.0,7.8,16,10,8),(2.8,7.7,17,10,4),(4.9,8.8,18,8,3),(5.5,9.9,19,9,13),(7.0,7.0,20,1,7),(6.0,7.0,22,15,10);
->>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
 /*!40000 ALTER TABLE `nota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -152,7 +145,7 @@ DROP TABLE IF EXISTS `professor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `professor` (
-  `idprofessor` int(11) NOT NULL AUTO_INCREMENT,
+  `idprofessor` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idprofessor`)
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
@@ -166,6 +159,38 @@ LOCK TABLES `professor` WRITE;
 /*!40000 ALTER TABLE `professor` DISABLE KEYS */;
 INSERT INTO `professor` VALUES (1,'Anderson Moreira'),(2,'Paulo Abadie'),(3,'Marcos André'),(4,'Renata Dantas'),(5,'Aida Ferreira'),(6,'Renata Freire'),(7,'Rafael Roque'),(8,'Marco Domingues'),(9,'Paulo Gonçalves'),(10,'Fernanda Celci'),(11,'Uribatan Ramos');
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `turma`
+--
+
+DROP TABLE IF EXISTS `turma`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `turma` (
+  `idturma` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `fkdisciplina` int(10) unsigned NOT NULL,
+  `fkaluno` int(10) unsigned NOT NULL,
+  `fkprofessor` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`idturma`),
+  KEY `fkdisciplina` (`fkdisciplina`),
+  KEY `fkaluno` (`fkaluno`),
+  KEY `fkprofessor` (`fkprofessor`),
+  CONSTRAINT `fk_turma_1` FOREIGN KEY (`fkprofessor`) REFERENCES `professor` (`idprofessor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fkaluno` FOREIGN KEY (`fkaluno`) REFERENCES `aluno` (`idaluno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  CONSTRAINT `fkdisciplina` FOREIGN KEY (`fkdisciplina`) REFERENCES `disciplina` (`iddisciplina`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `turma`
+--
+
+LOCK TABLES `turma` WRITE;
+/*!40000 ALTER TABLE `turma` DISABLE KEYS */;
+INSERT INTO `turma` VALUES (1,1,1,1),(21,2,2,2),(22,3,3,3),(23,1,2,3),(24,4,5,6),(25,4,4,4),(26,5,6,7),(27,7,8,9),(28,9,10,9);
+/*!40000 ALTER TABLE `turma` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -195,8 +220,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2019-06-11  0:05:33
-=======
--- Dump completed on 2019-06-09 12:55:05
->>>>>>> def56ab5b68422f1f6d58bb7f05c2ad646402663
+-- Dump completed on 2019-06-12  9:22:24
