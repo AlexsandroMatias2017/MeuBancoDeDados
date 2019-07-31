@@ -1,9 +1,9 @@
 import mysql.connector
 
 mydb = mysql.connector.connect(
-  	host="localhost",#Configure de acordo com seu banco
-  	user="matias",     # de dados esta seção.
-	passwd="matias",
+  	host="127.0.0.1",#Configure de acordo com seu banco
+  	user="root",     # de dados esta seção.
+	passwd="",
 	database = "" #Chama o banco de dados ja logado.
 	#Nesse caso ele ainda não chama nenhum pois, ainda n está criado
 )
