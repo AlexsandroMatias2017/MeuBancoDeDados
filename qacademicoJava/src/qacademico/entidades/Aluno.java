@@ -6,6 +6,8 @@ public class Aluno
 	private String nome;
 	private String sobrenome;
 	private String telefone;
+	
+	// Getters
 
 	public int getIdAluno()
 	{
@@ -27,6 +29,7 @@ public class Aluno
 		return telefone;
 	}
 
+	// Setters
 	public void setIdAluno(int idAluno)
 	{
 		this.idAluno = idAluno;
