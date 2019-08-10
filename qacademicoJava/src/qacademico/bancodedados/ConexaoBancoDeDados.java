@@ -17,7 +17,7 @@ import java.util.Properties;
 //
 //
 // Implementando métodos estáticos que conectam com banco de dados
-public class BancoDeDados
+public class ConexaoBancoDeDados
 {
 	// implementando a conexão propriamente dita com o banco de dados
 	private static Connection conexao = null;
