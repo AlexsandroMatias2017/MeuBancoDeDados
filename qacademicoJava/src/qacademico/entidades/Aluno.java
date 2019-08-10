@@ -6,9 +6,8 @@ public class Aluno
 	private String nome;
 	private String sobrenome;
 	private String telefone;
-	
-	// Getters
 
+	// Getters
 	public int getIdAluno()
 	{
 		return idAluno;
