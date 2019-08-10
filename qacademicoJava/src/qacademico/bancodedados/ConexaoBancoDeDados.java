@@ -15,7 +15,6 @@ import java.util.Properties;
 // https://docs.oracle.com/javase/8/docs/api/java/sql/package-summary.html
 // Pacotes: java.sql e javax.sql (API suplementar para servidores)
 //
-//
 // Implementando métodos estáticos que conectam com banco de dados
 public class ConexaoBancoDeDados
 {
