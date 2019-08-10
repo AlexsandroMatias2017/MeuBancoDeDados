@@ -8,6 +8,7 @@ public class BancoDeDadosExcecoes extends RuntimeException
 	{
 		// forçando a implementação de criação do construtor
 		// passando a mensagem para a superclasse -> no caso RunTimeException
+		//
 		super(mensagem);
 	}
 }
