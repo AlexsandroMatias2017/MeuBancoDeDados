@@ -92,4 +92,17 @@ public class ConexaoBancoDeDados
 			throw new BancoDeDadosExcecoes(e.getMessage());
 		}
 	}
+
+	private static void comandoSelect()
+	{
+		// API:
+		// Statement - montagem de um comando SQL que será executado
+		// ResultSet - Objeto contendo resultado de uma consulta na forma de
+		// tabela que é representada a posição descrita abaixo:
+		// o first() [move para posição 1, se houver]
+		// o beforeFirst() [move para posição 0]
+		// o next() [move para o próximo, retorna false se já estiver no último]
+		// o absolute(int) [move para a posição dada, lembrando que dados reais
+		// começam em 1]
+	}
 }
