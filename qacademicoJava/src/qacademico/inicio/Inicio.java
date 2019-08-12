@@ -4,7 +4,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import qacademico.bancodedados.ConexaoBancoDeDados;
+import qacademico.bancodedados.BancoDeDadosConexao;
 
 public class Inicio
 {
@@ -21,18 +21,26 @@ public class Inicio
 		// exceções. Então será feito o try/catch
 		try
 		{
-			conexao = ConexaoBancoDeDados.getConexao();
+			conexao = BancoDeDadosConexao.getConexao();
 			consulta = conexao.createStatement();
 			consulta.executeQuery("select * from aluno");
-			
 			while (resultadosql.next())
 			{
-				
+				System.out.println(resultadosql.getInt("id") + resultadosql.getString("name"));
 			}
 		}
-		catch(
-
-	Exception e)
-	{
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		// como o programa é parte de um programa de uma biblioteca externa, ou
+		// seja não controlados pela JVM, temos que fechar esse recurso
+		// manualmente para se evite vazamento de memória
+		finally
+		{
+			BancoDeDadosConexao.fecharConsultas(consulta);
+			BancoDeDadosConexao.fecharResultadosql(resultadosql);
+			BancoDeDadosConexao.fechandoConexao();
+		}
 	}
 }

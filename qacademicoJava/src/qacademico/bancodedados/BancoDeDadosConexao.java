@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
 //
@@ -16,7 +18,7 @@ import java.util.Properties;
 // Pacotes: java.sql e javax.sql (API suplementar para servidores)
 //
 // Implementando métodos estáticos que conectam com banco de dados
-public class ConexaoBancoDeDados
+public class BancoDeDadosConexao
 {
 	// implementando a conexão propriamente dita com o banco de dados
 	private static Connection conexao = null;
@@ -104,5 +106,35 @@ public class ConexaoBancoDeDados
 		// o next() [move para o próximo, retorna false se já estiver no último]
 		// o absolute(int) [move para a posição dada, lembrando que dados reais
 		// começam em 1]
+	}
+
+	public static void fecharConsultas(Statement consulta)
+	{
+		if (consulta != null)
+		{
+			try
+			{
+				consulta.close();
+			}
+			catch (SQLException e)
+			{
+				throw new BancoDeDadosExcecoes(e.getMessage());
+			}
+		}
+	}
+
+	public static void fecharResultadosql(ResultSet resultado)
+	{
+		if (resultado != null)
+		{
+			try
+			{
+				resultado.close();
+			}
+			catch (SQLException e)
+			{
+				throw new BancoDeDadosExcecoes(e.getMessage());
+			}
+		}
 	}
 }
