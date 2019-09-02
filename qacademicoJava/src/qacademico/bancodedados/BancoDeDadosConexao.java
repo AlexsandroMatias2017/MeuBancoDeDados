@@ -68,7 +68,6 @@ public class BancoDeDadosConexao
 			}
 			catch (Exception e)
 			{
-				// TODO: handle exception
 				throw new BancoDeDadosExcecoes(e.getMessage());
 			}
 		}
