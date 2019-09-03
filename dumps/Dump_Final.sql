@@ -148,7 +148,7 @@ CREATE TABLE `professor` (
   `idprofessor` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `nome` varchar(30) DEFAULT NULL,
   PRIMARY KEY (`idprofessor`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
