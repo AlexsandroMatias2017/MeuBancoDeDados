@@ -1,5 +1,13 @@
 
-CREATE SCHEMA IF NOT EXISTS `qacademico` ;
+
+-- -----------------------------------------------------
+-- Schema qacademico
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema qacademico
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `qacademico` DEFAULT CHARACTER SET utf8 ;
 USE `qacademico` ;
 
 -- -----------------------------------------------------
@@ -7,9 +15,10 @@ USE `qacademico` ;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`aluno` (
   `idaluno` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(30) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idaluno`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -19,7 +28,8 @@ CREATE TABLE IF NOT EXISTS `qacademico`.`professor` (
   `idprofessor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`idprofessor`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -27,10 +37,11 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`disciplina` (
   `iddisciplina` INT UNSIGNED NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(45) NOT NULL,
+  `nome` VARCHAR(100) NOT NULL,
   `cargahoraria` INT NULL,
   PRIMARY KEY (`iddisciplina`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -38,14 +49,13 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`curso` (
   `idcurso` INT UNSIGNED NOT NULL,
-  `nome` VARCHAR(45) NULL,
+  `nome` VARCHAR(100) NOT NULL,
   PRIMARY KEY (`idcurso`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
--- -----------------------------------------------------
--- Table `qacademico`.`table1`
--- -----------------------------------------------------
+
 
 
 -- -----------------------------------------------------
@@ -53,7 +63,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`dependente` (
   `id_dependente` INT NOT NULL,
-  `nome` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `id_professor` INT NOT NULL,
   PRIMARY KEY (`id_dependente`, `id_professor`),
   INDEX `fk_dependente_professor1_idx` (`id_professor` ASC),
@@ -71,9 +81,10 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`lista_avaliacao_unidade` (
   `idlista_avaliacao_unidade` INT NOT NULL AUTO_INCREMENT,
-  `unidade` SMALLINT NOT NULL,
+  `unidade` VARCHAR(10) NOT NULL,
   PRIMARY KEY (`idlista_avaliacao_unidade`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -81,8 +92,8 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`diario` (
   `iddiario` INT NOT NULL,
-  `idnota` INT NULL,
-  `idaluno` INT NULL,
+  `idnota` INT NOT NULL,
+  `idaluno` INT NOT NULL,
   `disciplina_iddisciplina` INT UNSIGNED NOT NULL,
   `curso_idcurso` INT UNSIGNED NOT NULL,
   `idlista_avaliacao_unidade1` INT NOT NULL,
@@ -125,28 +136,29 @@ CREATE TABLE IF NOT EXISTS `qacademico`.`avaliacao` (
   `data_avaliacao` DATETIME NOT NULL,
   `nota_maxima` DECIMAL(4,2) NOT NULL,
   `nota_minima` DECIMAL(4,2) NOT NULL,
-  `peso` DECIMAL(3,2) NOT NULL,
+  `peso` DECIMAL(4,2) NOT NULL,
   PRIMARY KEY (`idavaliacao`))
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
 -- Table `qacademico`.`diario_professor`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`diario_professor` (
-  `diario_iddiario` INT NOT NULL,
-  `professor_idprofessor` INT NOT NULL,
-  `funcao` VARCHAR(45) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
-  PRIMARY KEY (`diario_iddiario`, `professor_idprofessor`),
-  INDEX `fk_diario_has_professor_professor1_idx` (`professor_idprofessor` ASC),
-  INDEX `fk_diario_has_professor_diario_idx` (`diario_iddiario` ASC),
+  `id_diario` INT NOT NULL,
+  `id_professor` INT NOT NULL,
+  `título` ENUM('mestre', 'doutor') CHARACTER SET 'utf8' NOT NULL,
+  PRIMARY KEY (`id_diario`, `id_professor`),
+  INDEX `fk_diario_has_professor_professor1_idx` (`id_professor` ASC),
+  INDEX `fk_diario_has_professor_diario_idx` (`id_diario` ASC),
   CONSTRAINT `fk_diario_has_professor_diario`
-    FOREIGN KEY (`diario_iddiario`)
+    FOREIGN KEY (`id_diario`)
     REFERENCES `qacademico`.`diario` (`iddiario`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_diario_has_professor_professor1`
-    FOREIGN KEY (`professor_idprofessor`)
+    FOREIGN KEY (`id_professor`)
     REFERENCES `qacademico`.`professor` (`idprofessor`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -173,7 +185,8 @@ CREATE TABLE IF NOT EXISTS `qacademico`.`avaliacao_diario` (
     REFERENCES `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
 -- -----------------------------------------------------
@@ -181,7 +194,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`nota_avaliacao` (
   `idavaliacao` INT NOT NULL,
-  `nota` DECIMAL(2,2) NOT NULL,
+  `nota` DECIMAL(4,2) NOT NULL,
   `idaluno` INT UNSIGNED NOT NULL,
   PRIMARY KEY (`idavaliacao`, `idaluno`),
   INDEX `fk_nota_has_avaliacao_avaliacao1_idx` (`idavaliacao` ASC),
@@ -196,14 +209,14 @@ CREATE TABLE IF NOT EXISTS `qacademico`.`nota_avaliacao` (
     REFERENCES `qacademico`.`aluno` (`idaluno`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
 
 
-SET SQL_MODE=@OLD_SQL_MODE;
-SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
-SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
-
-
+-- -----------------------------------------------------
+-- Data for table `qacademico`.`aluno`
+-- -----------------------------------------------------
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`aluno` (`idaluno`, `nome`) VALUES (1, 'Alexsandro matias');
 INSERT INTO `qacademico`.`aluno` (`idaluno`, `nome`) VALUES (2, 'Josiane maria');
@@ -227,13 +240,13 @@ INSERT INTO `qacademico`.`aluno` (`idaluno`, `nome`) VALUES (19, 'girlane coelho
 INSERT INTO `qacademico`.`aluno` (`idaluno`, `nome`) VALUES (20, 'helio da Silva');
 INSERT INTO `qacademico`.`aluno` (`idaluno`, `nome`) VALUES (21, 'horácio de castro');
 
-
+COMMIT;
 
 
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`professor`
 -- -----------------------------------------------------
-  
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (1, 'marco domingues');
 INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (2, 'rafael roque');
@@ -247,7 +260,13 @@ INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (9, 'marcos 
 INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (10, 'Heloísa rodrigues');
 INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (11, 'Fernanda Tenónio');
 
+COMMIT;
 
+
+-- -----------------------------------------------------
+-- Data for table `qacademico`.`disciplina`
+-- -----------------------------------------------------
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`disciplina` (`iddisciplina`, `nome`, `cargahoraria`) VALUES (1, 'Estrutura de Dados ', 100);
 INSERT INTO `qacademico`.`disciplina` (`iddisciplina`, `nome`, `cargahoraria`) VALUES (2, 'Banco de Dados 1 ', 60);
@@ -271,13 +290,13 @@ INSERT INTO `qacademico`.`disciplina` (`iddisciplina`, `nome`, `cargahoraria`) V
 INSERT INTO `qacademico`.`disciplina` (`iddisciplina`, `nome`, `cargahoraria`) VALUES (20, 'Cálculo Numérico ', 65);
 INSERT INTO `qacademico`.`disciplina` (`iddisciplina`, `nome`, `cargahoraria`) VALUES (21, 'Geometria Analítica ', 70);
 
- 
+COMMIT;
 
 
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`curso`
 -- -----------------------------------------------------
-  
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`curso` (`idcurso`, `nome`) VALUES (1, 'Tecnólogo análise de desenvolvimento de sistemas');
 INSERT INTO `qacademico`.`curso` (`idcurso`, `nome`) VALUES (2, 'Data Science');
@@ -287,13 +306,13 @@ INSERT INTO `qacademico`.`curso` (`idcurso`, `nome`) VALUES (5, 'bacharelado em 
 INSERT INTO `qacademico`.`curso` (`idcurso`, `nome`) VALUES (6, 'engenharia de software ');
 INSERT INTO `qacademico`.`curso` (`idcurso`, `nome`) VALUES (7, 'engenharia da computação ');
 
- 
+COMMIT;
 
 
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`dependente`
 -- -----------------------------------------------------
-  
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`dependente` (`id_dependente`, `nome`, `id_professor`) VALUES (1, 'eduardo bolsonaro', 1);
 INSERT INTO `qacademico`.`dependente` (`id_dependente`, `nome`, `id_professor`) VALUES (2, 'carlos bolsonaro', 1);
@@ -323,13 +342,13 @@ INSERT INTO `qacademico`.`dependente` (`id_dependente`, `nome`, `id_professor`) 
 INSERT INTO `qacademico`.`dependente` (`id_dependente`, `nome`, `id_professor`) VALUES (26, 'rafael bittencourt', 5);
 INSERT INTO `qacademico`.`dependente` (`id_dependente`, `nome`, `id_professor`) VALUES (27, 'marcelo neves', 10);
 
- 
+COMMIT;
 
 
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`avaliacao`
 -- -----------------------------------------------------
-  
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (1, '1', '2019-09-06', 8, 0, 8);
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (2, '2', '2019-05-29', 10, 0, 2);
@@ -363,13 +382,13 @@ INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (30, '2', '2011-09-28', 4, 2, 2);
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (31, '1', '2011-06-20', 8, 3, 10);
 
- 
+COMMIT;
 
 
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`nota_avaliacao`
 -- -----------------------------------------------------
-  
+START TRANSACTION;
 USE `qacademico`;
 INSERT INTO `qacademico`.`nota_avaliacao` (`idavaliacao`, `nota`, `idaluno`) VALUES (2, 8, 21);
 INSERT INTO `qacademico`.`nota_avaliacao` (`idavaliacao`, `nota`, `idaluno`) VALUES (2, 10, 2);
@@ -403,5 +422,5 @@ INSERT INTO `qacademico`.`nota_avaliacao` (`idavaliacao`, `nota`, `idaluno`) VAL
 INSERT INTO `qacademico`.`nota_avaliacao` (`idavaliacao`, `nota`, `idaluno`) VALUES (1, 4, 4);
 INSERT INTO `qacademico`.`nota_avaliacao` (`idavaliacao`, `nota`, `idaluno`) VALUES (2, 8, 1);
 
- 
+COMMIT;
 
