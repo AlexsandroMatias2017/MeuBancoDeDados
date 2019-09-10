@@ -27,6 +27,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `qacademico`.`professor` (
   `idprofessor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(30) NOT NULL,
+  `titulo` ENUM('mestre', 'doutor', 'especialista', '') NOT NULL,
   PRIMARY KEY (`idprofessor`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -57,13 +58,12 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
-
 -- -----------------------------------------------------
 -- Table `qacademico`.`dependente`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`dependente` (
   `id_dependente` INT NOT NULL,
-  `nome` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   `id_professor` INT NOT NULL,
   PRIMARY KEY (`id_dependente`, `id_professor`),
   INDEX `fk_dependente_professor1_idx` (`id_professor` ASC),
@@ -133,7 +133,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `qacademico`.`avaliacao` (
   `idavaliacao` INT NOT NULL AUTO_INCREMENT,
   `unidade` VARCHAR(10) NOT NULL,
-  `data_avaliacao` DATETIME NOT NULL,
+  `data_avaliacao` DATE NOT NULL,
   `nota_maxima` DECIMAL(4,2) NOT NULL,
   `nota_minima` DECIMAL(4,2) NOT NULL,
   `peso` DECIMAL(4,2) NOT NULL,
@@ -148,7 +148,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `qacademico`.`diario_professor` (
   `id_diario` INT NOT NULL,
   `id_professor` INT NOT NULL,
-  `título` ENUM('mestre', 'doutor') CHARACTER SET 'utf8' NOT NULL,
+  `funcao` VARCHAR(40) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   PRIMARY KEY (`id_diario`, `id_professor`),
   INDEX `fk_diario_has_professor_professor1_idx` (`id_professor` ASC),
   INDEX `fk_diario_has_professor_diario_idx` (`id_diario` ASC),
@@ -213,6 +213,7 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
 
+
 -- -----------------------------------------------------
 -- Data for table `qacademico`.`aluno`
 -- -----------------------------------------------------
@@ -248,17 +249,17 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `qacademico`;
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (1, 'marco domingues');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (2, 'rafael roque');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (3, 'anderson moreira');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (4, 'paulo abadie');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (5, 'paulo goncalves');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (6, 'renata freire');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (7, 'renata dantas');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (8, 'ainda ferreira');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (9, 'marcos andré ');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (10, 'Heloísa rodrigues');
-INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`) VALUES (11, 'Fernanda Tenónio');
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (1, 'marco domingues', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (2, 'rafael roque', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (3, 'anderson moreira', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (4, 'paulo abadie', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (5, 'paulo goncalves', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (6, 'renata freire', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (7, 'renata dantas', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (8, 'ainda ferreira', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (9, 'marcos andré ', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (10, 'Heloísa rodrigues', DEFAULT);
+INSERT INTO `qacademico`.`professor` (`idprofessor`, `nome`, `titulo`) VALUES (11, 'Fernanda Tenónio', DEFAULT);
 
 COMMIT;
 
