@@ -1,5 +1,4 @@
 
-
 -- -----------------------------------------------------
 -- Schema qacademico
 -- -----------------------------------------------------
@@ -58,6 +57,7 @@ DEFAULT CHARACTER SET = utf8;
 
 
 
+
 -- -----------------------------------------------------
 -- Table `qacademico`.`dependente`
 -- -----------------------------------------------------
@@ -81,7 +81,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`lista_avaliacao_unidade` (
   `idlista_avaliacao_unidade` INT NOT NULL AUTO_INCREMENT,
-  `unidade` VARCHAR(10) NOT NULL,
+  `unidade` ENUM('1', '2', 'final') NOT NULL,
   PRIMARY KEY (`idlista_avaliacao_unidade`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -171,17 +171,17 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `qacademico`.`avaliacao_diario` (
   `idavaliacao` INT NOT NULL,
-  `id_avaliacao` INT NOT NULL,
-  PRIMARY KEY (`idavaliacao`, `id_avaliacao`),
+  `id_avaliacao_unidade` INT NOT NULL,
+  PRIMARY KEY (`idavaliacao`, `id_avaliacao_unidade`),
   INDEX `fk_avaliacao_has_diario_avaliacao1_idx` (`idavaliacao` ASC),
-  INDEX `fk_avaliacao_has_diario_lista_avaliacao_unidade1_idx` (`id_avaliacao` ASC),
+  INDEX `fk_avaliacao_has_diario_lista_avaliacao_unidade1_idx` (`id_avaliacao_unidade` ASC),
   CONSTRAINT `fk_avaliacao_has_diario_avaliacao1`
     FOREIGN KEY (`idavaliacao`)
     REFERENCES `qacademico`.`avaliacao` (`idavaliacao`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-  CONSTRAINT `fk_avaliacao_has_diario_lista_avaliacao_unidade1`
-    FOREIGN KEY (`id_avaliacao`)
+  CONSTRAINT `fk_avaliacao_has_diario_lista_avaliacao_unidade`
+    FOREIGN KEY (`id_avaliacao_unidade`)
     REFERENCES `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -347,6 +347,36 @@ COMMIT;
 
 
 -- -----------------------------------------------------
+-- Data for table `qacademico`.`lista_avaliacao_unidade`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `qacademico`;
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (1, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (2, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (3, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (4, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (5, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (6, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (7, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (8, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (9, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (10, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (11, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (12, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (13, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (14, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (15, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (16, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (17, '1');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (18, 'final');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (19, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (20, '2');
+INSERT INTO `qacademico`.`lista_avaliacao_unidade` (`idlista_avaliacao_unidade`, `unidade`) VALUES (21, 'final');
+
+COMMIT;
+
+
+-- -----------------------------------------------------
 -- Data for table `qacademico`.`avaliacao`
 -- -----------------------------------------------------
 START TRANSACTION;
@@ -382,6 +412,30 @@ INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (29, '1', '2012-01-06', 5, 2, 3);
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (30, '2', '2011-09-28', 4, 2, 2);
 INSERT INTO `qacademico`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`) VALUES (31, '1', '2011-06-20', 8, 3, 10);
+
+COMMIT;
+
+
+-- -----------------------------------------------------
+-- Data for table `qacademico`.`avaliacao_diario`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `qacademico`;
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (1, 12);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (3, 1);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (8, 4);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (4, 5);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (7, 6);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (16, 7);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (2, 8);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (5, 8);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (6, 9);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (8, 9);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (7, 11);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (15, 18);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (12, 19);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (10, 20);
+INSERT INTO `qacademico`.`avaliacao_diario` (`idavaliacao`, `id_avaliacao_unidade`) VALUES (9, 21);
 
 COMMIT;
 

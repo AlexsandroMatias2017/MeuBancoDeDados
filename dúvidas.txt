@@ -1,0 +1,1 @@
+na tabela lista_avaliacao_unidade, temos um atributo chamado UNIDADE, que representa a unidade referente à unidade que uma determinada avaliação a aplicada. Mas como irei fazer a diferenciação nos atributos IDLISTA_AVALIACAO_UNIDADE1 e IDLISTA_AVALIACAO_UNIDADE2, já que fiz a determinação desse valor na tabela anterior?
