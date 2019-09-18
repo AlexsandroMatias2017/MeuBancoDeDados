@@ -1,5 +1,4 @@
-
--- -----------------------------------------------------
+----
 -- Schema roque
 -- -----------------------------------------------------
 
@@ -26,7 +25,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `roque`.`professor` (
   `idprofessor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(30) NOT NULL,
-  `titulo` ENUM('mestre', 'doutor', 'especialista', '') NOT NULL,
+  `titulo` ENUM('mestre', 'doutor', 'especialista', '') CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT 'mestre',
   PRIMARY KEY (`idprofessor`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -60,7 +59,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `roque`.`dependente` (
   `id_dependente` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
   `idprofessor` INT NOT NULL,
   PRIMARY KEY (`id_dependente`, `idprofessor`),
   INDEX `fk_dependente_professor1_idx` (`idprofessor` ASC),
@@ -81,8 +80,8 @@ CREATE TABLE IF NOT EXISTS `roque`.`diario` (
   `idaluno` INT NOT NULL,
   `iddisciplina` INT NOT NULL,
   `idcurso` INT NOT NULL,
-  `turno` ENUM('manhã', 'tarde', 'noite') NOT NULL,
-  PRIMARY KEY (`iddiario`, `iddisciplina`, `idcurso`),
+  `turno` ENUM('manhã', 'tarde', 'noite') CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT 'noite',
+  PRIMARY KEY (`iddiario`, `iddisciplina`, `idcurso`, `idaluno`),
   INDEX `fk_diario_disciplina1_idx` (`iddisciplina` ASC),
   INDEX `fk_diario_curso1_idx` (`idcurso` ASC),
   CONSTRAINT `fk_diario_disciplina1`
@@ -106,8 +105,6 @@ CREATE TABLE IF NOT EXISTS `roque`.`avaliacao` (
   `idavaliacao` INT NOT NULL AUTO_INCREMENT,
   `unidade` VARCHAR(10) NOT NULL,
   `data_avaliacao` DATE NOT NULL,
-  `nota_maxima` DECIMAL(4,2) NOT NULL,
-  `nota_minima` DECIMAL(4,2) NOT NULL,
   `peso` DECIMAL(4,2) NOT NULL,
   `iddiario` INT NOT NULL,
   PRIMARY KEY (`idavaliacao`, `iddiario`),
@@ -167,7 +164,6 @@ CREATE TABLE IF NOT EXISTS `roque`.`professor_diario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
 
 
 -- -----------------------------------------------------
@@ -334,37 +330,37 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `roque`;
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (1, '1', '2019-09-06', 8, 0, 8, 1);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (2, '2', '2019-05-29', 10, 0, 2, 2);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (3, '1', '2019-02-18', 8, 1, 7, 3);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (4, '2', '2018-11-10', 10, 1, 3, 4);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (5, '1', '2018-08-02', 10, 1, 8, 5);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (6, '2', '2018-04-24', 7, 2, 2, 6);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (7, '1', '2018-01-14', 10, 1, 5, 7);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (8, '2', '2017-10-06', 9, 1, 5, 8);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (9, '1', '2017-06-28', 7, 2, 8, 9);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (10, '2', '2017-03-20', 6, 2, 2, 10);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (11, '1', '2016-12-10', 10, 0, 10, 4);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (12, '2', '2016-09-01', 8, 3, 5, 5);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (13, '1', '2016-05-24', 7, 2, 5, 7);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (14, '2', '2016-02-14', 6, 2, 6, 1);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (15, '1', '2015-11-06', 5, 3, 4, 9);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (16, '2', '2015-07-29', 9, 1, 7, 5);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (17, '1', '2015-04-20', 9, 2, 3, 6);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (18, '2', '2015-01-10', 9, 2, 9, 1);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (19, '1', '2014-10-02', 9, 2, 1, 2);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (20, '2', '2014-06-24', 10, 3, 7, 1);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (21, '1', '2014-03-16', 10, 2, 3, 2);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (22, '2', '2013-12-06', 7, 2, 6, 8);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (23, '1', '2013-08-28', 8, 3, 6, 2);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (24, '2', '2013-05-20', 8, 3, 7, 10);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (25, '1', '2013-02-09', 8, 3, 8, 5);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (26, '2', '2012-11-01', 9, 1, 4, 3);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (27, '1', '2012-07-24', 9, 3, 9, 9);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (28, '2', '2012-04-15', 7, 3, 7, 3);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (29, '1', '2012-01-06', 5, 2, 3, 11);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (30, '2', '2011-09-28', 4, 2, 2, 6);
-INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `nota_maxima`, `nota_minima`, `peso`, `iddiario`) VALUES (31, '1', '2011-06-20', 8, 3, 10, 4);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (1, '1', '2019-09-06', 8, 1);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (2, '2', '2019-05-29', 2, 2);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (3, '1', '2019-02-18', 7, 3);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (4, '2', '2018-11-10', 3, 4);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (5, '1', '2018-08-02', 8, 5);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (6, '2', '2018-04-24', 2, 6);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (7, '1', '2018-01-14', 5, 7);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (8, '2', '2017-10-06', 5, 8);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (9, '1', '2017-06-28', 8, 9);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (10, '2', '2017-03-20', 2, 10);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (11, '1', '2016-12-10', 10, 4);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (12, '2', '2016-09-01', 5, 5);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (13, '1', '2016-05-24', 5, 7);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (14, '2', '2016-02-14', 6, 1);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (15, '1', '2015-11-06', 4, 9);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (16, '2', '2015-07-29', 7, 5);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (17, '1', '2015-04-20', 3, 6);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (18, '2', '2015-01-10', 9, 1);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (19, '1', '2014-10-02', 1, 2);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (20, '2', '2014-06-24', 7, 1);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (21, '1', '2014-03-16', 3, 2);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (22, '2', '2013-12-06', 6, 8);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (23, '1', '2013-08-28', 6, 2);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (24, '2', '2013-05-20', 7, 10);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (25, '1', '2013-02-09', 8, 5);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (26, '2', '2012-11-01', 4, 3);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (27, '1', '2012-07-24', 9, 9);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (28, '2', '2012-04-15', 7, 3);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (29, '1', '2012-01-06', 3, 11);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (30, '2', '2011-09-28', 2, 6);
+INSERT INTO `roque`.`avaliacao` (`idavaliacao`, `unidade`, `data_avaliacao`, `peso`, `iddiario`) VALUES (31, '1', '2011-06-20', 10, 4);
 
 COMMIT;
 
