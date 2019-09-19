@@ -1,4 +1,6 @@
-----
+
+
+-- -----------------------------------------------------
 -- Schema roque
 -- -----------------------------------------------------
 
@@ -25,7 +27,7 @@ DEFAULT CHARACTER SET = utf8;
 CREATE TABLE IF NOT EXISTS `roque`.`professor` (
   `idprofessor` INT NOT NULL AUTO_INCREMENT,
   `nome` VARCHAR(30) NOT NULL,
-  `titulo` ENUM('mestre', 'doutor', 'especialista', '') CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT 'mestre',
+  `titulo` ENUM('mestre', 'doutor', 'especialista', '') CHARACTER SET 'utf8' NOT NULL DEFAULT 'mestre',
   PRIMARY KEY (`idprofessor`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -59,7 +61,7 @@ DEFAULT CHARACTER SET = utf8;
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `roque`.`dependente` (
   `id_dependente` INT NOT NULL AUTO_INCREMENT,
-  `nome` VARCHAR(100) CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL,
+  `nome` VARCHAR(100) CHARACTER SET 'utf8' NOT NULL,
   `idprofessor` INT NOT NULL,
   PRIMARY KEY (`id_dependente`, `idprofessor`),
   INDEX `fk_dependente_professor1_idx` (`idprofessor` ASC),
@@ -80,8 +82,8 @@ CREATE TABLE IF NOT EXISTS `roque`.`diario` (
   `idaluno` INT NOT NULL,
   `iddisciplina` INT NOT NULL,
   `idcurso` INT NOT NULL,
-  `turno` ENUM('manhã', 'tarde', 'noite') CHARACTER SET 'utf8' COLLATE 'utf8_general_ci' NOT NULL DEFAULT 'noite',
-  PRIMARY KEY (`iddiario`, `iddisciplina`, `idcurso`, `idaluno`),
+  `turno` ENUM('manhã', 'tarde', 'noite') CHARACTER SET 'utf8' NOT NULL DEFAULT 'noite',
+  PRIMARY KEY (`iddiario`, `idcurso`, `idaluno`, `iddisciplina`),
   INDEX `fk_diario_disciplina1_idx` (`iddisciplina` ASC),
   INDEX `fk_diario_curso1_idx` (`idcurso` ASC),
   CONSTRAINT `fk_diario_disciplina1`
@@ -164,6 +166,7 @@ CREATE TABLE IF NOT EXISTS `roque`.`professor_diario` (
     ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
+
 
 
 -- -----------------------------------------------------
@@ -258,6 +261,9 @@ INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (4, 'manutenção de micr
 INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (5, 'bacharelado em sistemas de informação ');
 INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (6, 'engenharia de software ');
 INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (7, 'engenharia da computação ');
+INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (8, 'engenharia eletrônica');
+INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (9, 'engenharia elétrica');
+INSERT INTO `roque`.`curso` (`idcurso`, `nome`) VALUES (DEFAULT, '');
 
 COMMIT;
 
@@ -410,26 +416,26 @@ COMMIT;
 -- -----------------------------------------------------
 START TRANSACTION;
 USE `roque`;
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (17, 7, 'pesquisador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (18, 15, 'tutor');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (19, 11, 'executante');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (1, 9, 'coordenador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (2, 15, 'orientador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (3, 6, 'pesquisador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (4, 7, 'tutor');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (5, 8, 'executante');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (16, 15, 'coordenador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (20, 6, 'orientador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (1, 7, 'pesquisador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (2, 15, 'tutor');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (3, 11, 'executante');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (4, 9, 'coordenador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (5, 15, 'orientador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (6, 6, 'pesquisador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 9, 'tutor');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 8, 'executante');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (9, 15, 'coordenador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (10, 6, 'orientador');
 INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (11, 7, 'pesquisador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (12, 3, 'tutor');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (13, 4, 'executante');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (14, 5, 'coordenador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (15, 1, 'orientador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (6, 5, 'pesquisador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 6, 'tutor');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 2, 'executante');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (9, 6, 'coordenador');
-INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (10, 7, 'orientador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 3, 'tutor');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 4, 'executante');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 10, 'coordenador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 1, 'orientador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 5, 'pesquisador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 10, 'tutor');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 2, 'executante');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (8, 6, 'coordenador');
+INSERT INTO `roque`.`professor_diario` (`idprofessor`, `iddiario`, `funcao`) VALUES (7, 7, 'orientador');
 
 COMMIT;
 
