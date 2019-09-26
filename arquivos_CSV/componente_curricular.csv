@@ -1,25 +1,27 @@
-1,1,DG01,Desenho Geométrico,60,1,default,default,40
-2,1,PI00,Português Instrumental ,30,3,default,default,6
-3,1,II00,Inglês Instrumental,35,4,default,default,7
-4,1,IP00,Introdução à Programação ,90,8,default,default,18
-5,1,GA00,Geometria Analítica ,70,6,default,default,21
-6,1,IC00,Introdução à computação,60,5,default,default,22
-7,1,LP01,Lógica de programação,50,5,default,default,29
-8,2,BD01,Banco de Dados 1 ,60,5,7,default,2
-9,2,AC00,Arquitetura de Computadores ,50,4,6,default,4
+cod_cc,periodo,sigla,nome,cargahoraria,creditos,pre_req,co_req,matriz
+1,1,DG01,Desenho Geométrico,60,1,,,40
+2,1,PI00,Português Instrumental ,30,3,,,6
+3,1,II00,Inglês Instrumental,35,4, , ,7
+4,1,IP00,Introdução à Programação ,90,8, , ,18
+5,1,GA00,Geometria Analítica ,70,6, , ,21
+6,1,IC00,Introdução à computação,60,5, , ,22
+7,1,LP01,Lógica de programação,50,5, , ,29
+8,2,BD01,Banco de Dados 1 ,60,5,7, ,2
+9,2,AC00,Arquitetura de Computadores ,50,4,6, ,4
 10,2,LP00,Programação Orientada a Objetos ,120,9,4,8,8
-11,2,CA01,Cálculo 1 ,120,6,5,default,11
-12,2,EP00,Ética Profissional ,30,4,default,default,19
-13,2,IH00,interface homem-máquina,40,4,4,default,23
-14,3,BD02,Banco de Dados 2 ,40,5,5,default,3
-15,3,SO00,Sistema Operacionais ,50,4,8,default,5
-16,3,DW01,Desenvolvimento Web 1 ,80,6,4,default,9
-17,3,CA02,Cálculo 2 ,80,5,11,default,12
-18,3,SE00,Sistemas Embarcados ,45,4,6,default,16
-19,3,DW03,design web,41,5,10,default,24
-20,4,DW02,Desenvolvimento Web 2 ,90,6,16,default,10
-21,4,CA03,Cálculo 3 ,60,5,17,default,13
-22,4,RE01,Redes 1 ,60,5,9,default,14
+11,2,CA01,Cálculo 1 ,120,6,5, ,11
+12,2,EP00,Ética Profissional ,30,4, , ,19
+13,2,IH00,interface homem-máquina,40,4,4, ,23
+14,3,BD02,Banco de Dados 2 ,40,5,5, ,3
+15,3,SO00,Sistema Operacionais ,50,4,8, ,5
+16,3,DW01,Desenvolvimento Web 1 ,80,6,4, ,9
+17,3,CA02,Cálculo 2 ,80,5,11, ,12
+18,3,SE00,Sistemas Embarcados ,45,4,6, ,16
+19,3,DW03,design web,41,5,10, ,24
+20,4,DW02,Desenvolvimento Web 2 ,90,6,16, ,10
+21,4,CA03,Cálculo 3 ,60,5,17, ,13
+22,4,RE01,Redes 1 ,60,5,9, ,14
 23,5,RE02,Redes 2 ,50,5,22,20,15
-24,6,CN00,Cálculo Numérico ,65,5,21,default,20
-25,8,LI00,LIBRAS ,45,2,default,default,17
+24,6,CN00,Cálculo Numérico ,65,5,21, ,20
+25,8,LI00,LIBRAS ,45,2, , ,17
+26,3,ED00,Estrutura de dados,80,4,4,8,1
