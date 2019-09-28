@@ -1,25 +1,27 @@
-1,1,TADS01,2000-10-19,expirada
-2,2,DATAS01,2019-09-06,em vigor
-3,3,REDES01,2002-01-22,expirada
-4,4,MANMICRO01,2002-09-09,expirada
-5,5,BSI01,2003-04-27,expirada
-6,6,ENGSOFT01,2003-12-13,em vigor
-7,7,ENGCOMP01,2004-07-30,em vigor
-8,8,ENGELETRONICA01,2005-03-17,expirada
-9,9,ENGELETRICA01,2005-11-02,expirada
-10,10,ENGMECA01,2006-06-20,expirada
-11,1,TADS02,2007-02-05,em vigor
-12,3,REDES02,2000-10-20,em vigor
-13,4,MANMICRO02,2001-06-07,expirada
-14,5,BSI02,2002-01-23,em vigor
-15,6,ENGSOFT02,2019-09-10,expirada
-16,8,ENGELETRONICA02,2003-12-14,expirada
-17,9,ENGELETRICA02,2004-07-31,expirada
-18,10,ENGMECA02,2005-03-18,expirada
-19,4,MANMICRO03,2018-02-24,em vigor
-20,5,BSI03,2008-05-11,bloqueada
-21,6,ENGSOFT03,2018-12-27,bloqueada
-22,7,ENGCOMP02,2019-08-14,em vigor
-23,8,ENGELETRONICA03,2019-04-01,em vigor
-24,9,ENGELETRICA03,2018-11-17,em vigor
-25,10,ENGMECA03,2019-07-05,em vigor
+cod_cc,periodo,sigla,nome,cargahoraria,creditos,pre_req,co_req,matriz
+1,1,DG01,"Desenho Geométrico",60,1,NULL,NULL,25
+2,1,PI00,"Português Instrumental ",30,3,NULL,NULL,6
+3,1,II00,"Inglês Instrumental",35,4,NULL,NULL,7
+4,1,IP00,"Introdução à Programação ",90,8,NULL,NULL,18
+5,1,GA00,"Geometria Analítica ",70,6,NULL,NULL,21
+6,1,IC00,"Introdução à computação",60,5,NULL,NULL,22
+7,1,LP01,"Lógica de programação",50,5,NULL,NULL,20
+8,2,BD01,"Banco de Dados 1 ",60,5,7,NULL,2
+9,2,AC00,"Arquitetura de Computadores ",50,4,6,NULL,4
+10,2,LP00,"Programação Orientada a Objetos ",120,9,4,8,8
+11,2,CA01,"Cálculo 1 ",120,6,5,NULL,11
+12,2,EP00,"Ética Profissional ",30,4,NULL,NULL,19
+13,2,IH00,"interface homem-máquina",40,4,NULL,4,23
+14,3,BD02,"Banco de Dados 2 ",40,5,NULL,5,3
+15,3,SO00,"Sistema Operacionais ",50,4,NULL,8,5
+16,3,DW01,"Desenvolvimento Web 1 ",80,6,NULL,4,9
+17,3,CA02,"Cálculo 2 ",80,5,NULL,11,12
+18,3,SE00,"Sistemas Embarcados ",45,4,NULL,6,16
+19,3,DW03,"design web",41,5,NULL,10,24
+20,4,DW02,"Desenvolvimento Web 2 ",90,6,NULL,16,10
+21,4,CA03,"Cálculo 3 ",60,5,NULL,17,13
+22,4,RE01,"Redes 1 ",60,5,NULL,9,14
+23,5,RE02,"Redes 2 ",50,5,22,20,15
+24,6,CN00,"Cálculo Numérico ",65,5,NULL,21,20
+25,8,LI00,"LIBRAS ",45,2,NULL,NULL,17
+26,3,ED00,"Estrutura de dados",80,4,4,8,1

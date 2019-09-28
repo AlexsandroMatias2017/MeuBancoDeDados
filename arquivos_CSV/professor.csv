@@ -1,9 +1,14 @@
-1,marco domingues,mestre,112114
-2,rafael roque,doutor,045463
-3,anderson moreira,especialista,046547
-4,paulo abadie,especialista,044444
-5,paulo goncalves,doutor,007777
-6,renata freire,especialista,018015
-7,renata dantas,mestre,099443
-8,ainda ferreira,mestre,111111
-9,marcos andré ,doutor,147857
+idprofessor,nome,titulo,siape
+1,"marco domingues",mestre,112114
+2,"rafael roque",doutor,45463
+3,"anderson moreira",especialista,46547
+4,"paulo abadie",especialista,44444
+5,"paulo goncalves",doutor,7777
+6,"renata freire",especialista,18015
+7,"renata dantas",mestre,99443
+8,"ainda ferreira",mestre,111111
+9,"marcos andré ",doutor,147857
+10,"Jair Bolsonaro",especialista,171717
+11,"Antônio Carlos Magalhães",mestre,515145
+12,"Tacredo Neves",doutor,178789
+13,"Luiz Inácio ",especialista,131313
