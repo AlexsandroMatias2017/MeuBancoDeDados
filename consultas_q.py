@@ -2,7 +2,7 @@ import mysql.connector
 
 mydb = mysql.connector.connect(
   	host="127.0.0.1",#Configure de acordo com seu banco
-  	user="maias",     # de dados nesta seção.
+  	user="matias",     # de dados nesta seção.
 	passwd="matias",
 	database = "qacademico"
 )

@@ -1,15 +1,15 @@
 import mysql.connector
 
-mydb = mysql.connector.connect(
+conexao = mysql.connector.connect(
   	host="127.0.0.1",#Configure de acordo com seu banco
   	user="root",     # de dados esta seção.
-	passwd="",
-	database = "qacademico"#aqui você ja chama o banco de dados
+	passwd="root",
+	database = "roque"#aqui você ja chama o banco de dados
 						   #pois já está criado
 )
 
-cursor = mydb.cursor()
-#dados da tabela alunos
+cursor = conexao.cursor()
+
 
 #Dados da tabela curso.
 sql1 = "INSERT INTO curso (id_curso, nome) VALUES(%s, %s)"
@@ -32,7 +32,7 @@ val1 =[
 
 #Aqui ele executa o comando sql e passa os valores(val)
 cursor.executemany(sql1, val1)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela curso.")
 
 sql = "INSERT INTO alunos (id_curso, nome) VALUES(%s, %s)"
@@ -69,7 +69,7 @@ val = [
 ]
 
 cursor.executemany(sql, val)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela alunos.")
 
 #dados da tabela disciplina
@@ -98,7 +98,7 @@ val2 = [
 ]
 
 cursor.executemany(sql2, val2)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela disciplina.")
 
 #dados da tabela nota
@@ -126,7 +126,7 @@ val3 = [
 ]
 
 cursor.executemany(sql3, val3)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela nota.")
 
 #dados da tabela
@@ -145,7 +145,7 @@ val4 = [
 ]
 
 cursor.executemany(sql4, val4)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela professor.")
 
 #dados da tabela relacionamento.
@@ -175,5 +175,5 @@ val5 = [
 ]
 
 cursor.executemany(sql5, val5)
-mydb.commit()
+conexao.commit()
 print(cursor.rowcount, "dados inseridos na tabela relacionamento.")
