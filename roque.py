@@ -4,7 +4,7 @@ conexao = mysql.connector.connect(
     host="localhost",  # Configure de acordo com seu banco
     user="matias",  # de dados esta seção.
     passwd="matias",
-    database="qacademico"  # Chama o banco de dados ja logado.
+    database="roque"  # Chama o banco de dados ja logado.
     # Nesse caso ele ainda não chama nenhum pois, ainda n está criado
 )
 
@@ -24,5 +24,21 @@ def executeSql(filename):
             print("Comando falhou: ", msg)
 
 
-executeSql("somenteEstrutura.sql")
-print("banco de dados criado com sucesso!")
+def criacaoDeEstrutura():
+	executeSql("somenteEstrutura.sql")
+	print("banco de dados criado com sucesso!")
+
+def populacaoDados():
+	executeSql("dados.sql")
+	print("Dados inseridos com sucesso!")
+	
+	
+criacaoDeEstrutura()
+populacaoDados()
+	
+
+# print("O que deseja:")
+
+
+
+
