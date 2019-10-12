@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.7.21, for Linux (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.27, for Linux (x86_64)
 --
 -- Host: localhost    Database: roque
 -- ------------------------------------------------------
--- Server version	5.7.21-0ubuntu0.16.04.1
+-- Server version	5.7.27-0ubuntu0.18.04.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,21 +16,6 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `aluno`
---
-
-DROP TABLE IF EXISTS `aluno`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `aluno` (
-  `cod_aluno` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  `matricula` varchar(45) NOT NULL,
-  PRIMARY KEY (`cod_aluno`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `aluno`
 --
 
@@ -39,27 +24,6 @@ LOCK TABLES `aluno` WRITE;
 INSERT INTO `aluno` VALUES (1,'Alexsandro matias','0046'),(2,'Josiane maria','0465'),(3,'eliane maria','1654'),(4,'Priscila matias','0047'),(5,'raul seixas','0466'),(6,'chico buarque','1655'),(7,'chico cesar','0048'),(8,'Josiane santos','0467'),(9,'jonh lima','1656'),(10,'gideone santos','0049'),(11,'maurilo santana','0468'),(12,'mauricio moura','1657'),(13,'jose Silva','0050'),(14,'jose santos','0469'),(15,'maria eduarda','1658'),(16,'maria Silva','0051'),(17,'Matheus neves','0470'),(18,'paulo roberto','1659'),(19,'girlane coelho','0052'),(20,'helio da Silva','0471');
 /*!40000 ALTER TABLE `aluno` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `avaliacao`
---
-
-DROP TABLE IF EXISTS `avaliacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `avaliacao` (
-  `idavaliacao` int(11) NOT NULL AUTO_INCREMENT,
-  `diario` int(11) NOT NULL,
-  `etapa` varchar(40) NOT NULL,
-  `descricao` varchar(100) NOT NULL,
-  `peso` decimal(4,2) NOT NULL DEFAULT '1.00',
-  `nota_maxima` decimal(4,2) NOT NULL,
-  `data_avaliacao` date NOT NULL,
-  PRIMARY KEY (`idavaliacao`,`diario`),
-  KEY `fk_avaliacao_diario1_idx` (`diario`),
-  CONSTRAINT `fk_avaliacao_diario1` FOREIGN KEY (`diario`) REFERENCES `diario` (`cod_diario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `avaliacao`
@@ -72,33 +36,6 @@ INSERT INTO `avaliacao` VALUES (1,7,'UND2','avaliação da disciplina Estrutura 
 UNLOCK TABLES;
 
 --
--- Table structure for table `componente_curricular`
---
-
-DROP TABLE IF EXISTS `componente_curricular`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `componente_curricular` (
-  `cod_cc` int(11) NOT NULL AUTO_INCREMENT,
-  `periodo` varchar(10) NOT NULL,
-  `sigla` varchar(20) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `cargahoraria` int(11) NOT NULL,
-  `creditos` int(11) NOT NULL,
-  `pre_req` int(11) DEFAULT NULL,
-  `co_req` int(11) DEFAULT NULL,
-  `matriz` int(11) NOT NULL,
-  PRIMARY KEY (`cod_cc`,`matriz`),
-  KEY `fk_matriz_idx` (`matriz`),
-  KEY `fk_componente_curricular_componente_curricular1_idx` (`pre_req`),
-  KEY `fk_componente_curricular_1_idx` (`co_req`),
-  CONSTRAINT `fk_componente_cc_prerequisito` FOREIGN KEY (`pre_req`) REFERENCES `componente_curricular` (`cod_cc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_componente_corequisito` FOREIGN KEY (`co_req`) REFERENCES `componente_curricular` (`cod_cc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_componente_matriz_codigo` FOREIGN KEY (`matriz`) REFERENCES `matriz_curricular` (`cod_matriz`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `componente_curricular`
 --
 
@@ -107,20 +44,6 @@ LOCK TABLES `componente_curricular` WRITE;
 INSERT INTO `componente_curricular` VALUES (1,'1','DG01','Desenho Geométrico',60,1,NULL,NULL,25),(2,'1','PI00','Português Instrumental ',30,3,NULL,NULL,6),(3,'1','II00','Inglês Instrumental',35,4,NULL,NULL,7),(4,'1','IP00','Introdução à Programação ',90,8,NULL,NULL,18),(5,'1','GA00','Geometria Analítica ',70,6,NULL,NULL,21),(6,'1','IC00','Introdução à computação',60,5,NULL,NULL,22),(7,'1','LP01','Lógica de programação',50,5,NULL,NULL,20),(8,'2','BD01','Banco de Dados 1 ',60,5,7,NULL,2),(9,'2','AC00','Arquitetura de Computadores ',50,4,6,NULL,4),(10,'2','LP00','Programação Orientada a Objetos ',120,9,4,8,8),(11,'2','CA01','Cálculo 1 ',120,6,5,NULL,11),(12,'2','EP00','Ética Profissional ',30,4,NULL,NULL,19),(13,'2','IH00','interface homem-máquina',40,4,NULL,4,23),(14,'3','BD02','Banco de Dados 2 ',40,5,NULL,5,3),(15,'3','SO00','Sistema Operacionais ',50,4,NULL,8,5),(16,'3','DW01','Desenvolvimento Web 1 ',80,6,NULL,4,9),(17,'3','CA02','Cálculo 2 ',80,5,NULL,11,12),(18,'3','SE00','Sistemas Embarcados ',45,4,NULL,6,16),(19,'3','DW03','design web',41,5,NULL,10,24),(20,'4','DW02','Desenvolvimento Web 2 ',90,6,NULL,16,10),(21,'4','CA03','Cálculo 3 ',60,5,NULL,17,13),(22,'4','RE01','Redes 1 ',60,5,NULL,9,14),(23,'5','RE02','Redes 2 ',50,5,22,20,15),(24,'6','CN00','Cálculo Numérico ',65,5,NULL,21,20),(25,'8','LI00','LIBRAS ',45,2,NULL,NULL,17),(26,'3','ED00','Estrutura de dados',80,4,4,8,1);
 /*!40000 ALTER TABLE `componente_curricular` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `curso`
---
-
-DROP TABLE IF EXISTS `curso`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `curso` (
-  `cod_curso` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) NOT NULL,
-  PRIMARY KEY (`cod_curso`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `curso`
@@ -133,23 +56,6 @@ INSERT INTO `curso` VALUES (1,'Tecnólogo análise de desenvolvimento de sistema
 UNLOCK TABLES;
 
 --
--- Table structure for table `dependente`
---
-
-DROP TABLE IF EXISTS `dependente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dependente` (
-  `iddependente` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(100) DEFAULT NULL,
-  `professor_` int(11) NOT NULL,
-  PRIMARY KEY (`iddependente`,`professor_`),
-  KEY `fk_dependente_professor1_idx` (`professor_`),
-  CONSTRAINT `fk_dependente_professor1` FOREIGN KEY (`professor_`) REFERENCES `professor` (`idprofessor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `dependente`
 --
 
@@ -158,26 +64,6 @@ LOCK TABLES `dependente` WRITE;
 INSERT INTO `dependente` VALUES (1,'wanessa camargo',12),(2,'pedro mariano',10),(3,'maria rita',11),(4,'jose jorge',8),(5,'antônio carlos magalhães neto',11),(6,'maria conceicao',2),(7,'sebastiao carlos',3),(8,'welligton santos',3),(9,'mayssa Silva',8),(10,'daiana santos',9),(11,'enzo henrique',5),(12,'tiago velame',3),(13,'flavio gueiros',4),(14,'Myrelly karoline',4),(15,'emmlly Silva',9),(16,'valeria amaral',6),(17,'vanessa amaral',6),(18,'vitor tesla',4),(19,'marcio matos',5),(20,'rafael bittencourt',5),(21,'marcelo neves',1),(22,'carluxo bolsonaro',10),(23,'eduardo bolsonaro',10),(24,'flávio bolsonaro',10);
 /*!40000 ALTER TABLE `dependente` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `diario`
---
-
-DROP TABLE IF EXISTS `diario`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `diario` (
-  `cod_diario` int(11) NOT NULL,
-  `componente` int(11) NOT NULL,
-  `turno` varchar(40) NOT NULL DEFAULT 'noite',
-  `professor_principal` int(11) NOT NULL,
-  PRIMARY KEY (`cod_diario`,`componente`,`professor_principal`),
-  KEY `fk_diario_disciplina1_idx` (`componente`),
-  KEY `fk_diario_professor_id_idx` (`professor_principal`),
-  CONSTRAINT `fk_diario_componente_codcc` FOREIGN KEY (`componente`) REFERENCES `componente_curricular` (`cod_cc`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_diario_professor_id` FOREIGN KEY (`professor_principal`) REFERENCES `professor` (`idprofessor`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `diario`
@@ -190,23 +76,6 @@ INSERT INTO `diario` VALUES (1,10,'manhã',5),(2,11,'manhã',1),(3,12,'tarde',7)
 UNLOCK TABLES;
 
 --
--- Table structure for table `matriculas_componente`
---
-
-DROP TABLE IF EXISTS `matriculas_componente`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `matriculas_componente` (
-  `aluno` int(11) NOT NULL,
-  `turma` int(11) NOT NULL,
-  PRIMARY KEY (`aluno`,`turma`),
-  KEY `fk_matriculas_turma_codturma_idx` (`turma`),
-  CONSTRAINT `fk_matriculas_alunos_idaluno` FOREIGN KEY (`aluno`) REFERENCES `aluno` (`cod_aluno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_matriculas_turma_codturma` FOREIGN KEY (`turma`) REFERENCES `turma` (`cod_turma`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `matriculas_componente`
 --
 
@@ -215,25 +84,6 @@ LOCK TABLES `matriculas_componente` WRITE;
 INSERT INTO `matriculas_componente` VALUES (4,1),(5,1),(6,1),(10,1),(13,1),(4,2),(8,2),(19,2),(2,3),(5,3),(7,3),(8,3),(14,3),(2,4),(3,4),(4,4),(11,4),(18,4),(4,5),(11,5),(13,5),(14,5),(2,6),(3,6),(4,6),(10,6),(13,6),(14,6),(3,7),(4,7),(7,7),(10,7),(12,7),(13,7),(20,7),(1,8),(7,8),(10,8),(11,8),(12,8),(13,8),(2,9),(5,9),(6,9),(9,9),(11,9),(12,9),(13,9),(20,9),(1,10),(4,10),(5,10),(6,10),(9,10),(10,10),(11,10),(4,11),(5,11),(6,11),(7,11),(9,11),(10,11),(12,11),(17,11),(20,11),(3,12),(5,12),(12,12),(4,13),(6,13),(9,13),(19,13),(4,14),(9,14),(3,15),(4,15),(5,15),(12,15),(2,16),(6,16),(8,16),(11,16),(12,16),(13,16),(3,17),(4,17),(10,17),(11,17),(12,17),(20,17),(5,18),(6,18),(8,18),(12,18),(15,18),(3,19),(4,19),(9,19),(12,19),(3,20),(4,20),(5,20),(6,20),(19,20),(3,21),(11,21),(19,21),(2,22),(5,22),(14,22),(3,23),(5,23),(14,23),(18,23),(13,24),(20,24);
 /*!40000 ALTER TABLE `matriculas_componente` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `matriz_curricular`
---
-
-DROP TABLE IF EXISTS `matriz_curricular`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `matriz_curricular` (
-  `cod_matriz` int(11) NOT NULL AUTO_INCREMENT,
-  `curso` int(11) NOT NULL,
-  `nome` varchar(100) NOT NULL,
-  `data` date NOT NULL,
-  `situacao` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`cod_matriz`,`curso`),
-  KEY `fk_matriz_idx` (`curso`),
-  CONSTRAINT `fk_matriz_curso_codigo` FOREIGN KEY (`curso`) REFERENCES `curso` (`cod_curso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `matriz_curricular`
@@ -246,26 +96,6 @@ INSERT INTO `matriz_curricular` VALUES (1,1,'TADS01','2000-10-19','expirada'),(2
 UNLOCK TABLES;
 
 --
--- Table structure for table `nota_avaliacao`
---
-
-DROP TABLE IF EXISTS `nota_avaliacao`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `nota_avaliacao` (
-  `avaliacao` int(11) NOT NULL,
-  `aluno` int(11) NOT NULL,
-  `nota` decimal(4,2) NOT NULL,
-  `observação` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`avaliacao`,`aluno`),
-  KEY `fk_nota_has_avaliacao_avaliacao1_idx` (`avaliacao`),
-  KEY `fk_nota_avaliacao_aluno1_idx` (`aluno`),
-  CONSTRAINT `fk_nota_avaliacao_aluno1` FOREIGN KEY (`aluno`) REFERENCES `aluno` (`cod_aluno`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_nota_has_avaliacao_avaliacao1` FOREIGN KEY (`avaliacao`) REFERENCES `avaliacao` (`idavaliacao`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `nota_avaliacao`
 --
 
@@ -276,22 +106,6 @@ INSERT INTO `nota_avaliacao` VALUES (1,1,2.00,'O aluno com dificuldade do no ass
 UNLOCK TABLES;
 
 --
--- Table structure for table `professor`
---
-
-DROP TABLE IF EXISTS `professor`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `professor` (
-  `idprofessor` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(30) NOT NULL,
-  `titulo` varchar(40) NOT NULL,
-  `siape` int(11) DEFAULT NULL,
-  PRIMARY KEY (`idprofessor`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
 -- Dumping data for table `professor`
 --
 
@@ -300,23 +114,6 @@ LOCK TABLES `professor` WRITE;
 INSERT INTO `professor` VALUES (1,'marco domingues','mestre',112114),(2,'rafael roque','doutor',45463),(3,'anderson moreira','especialista',46547),(4,'paulo abadie','especialista',44444),(5,'paulo goncalves','doutor',7777),(6,'renata freire','especialista',18015),(7,'renata dantas','mestre',99443),(8,'ainda ferreira','mestre',111111),(9,'marcos andré ','doutor',147857),(10,'Jair Bolsonaro','especialista',171717),(11,'Tancredo Neves','mestre',154547),(12,'José Dirceu ','Doutor',456477);
 /*!40000 ALTER TABLE `professor` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `turma`
---
-
-DROP TABLE IF EXISTS `turma`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `turma` (
-  `cod_turma` int(11) NOT NULL AUTO_INCREMENT,
-  `nome` varchar(45) NOT NULL,
-  `diario` int(11) NOT NULL,
-  PRIMARY KEY (`cod_turma`,`diario`),
-  KEY `fk_turma_diario_cod_idx` (`diario`),
-  CONSTRAINT `fk_turma_diario_cod` FOREIGN KEY (`diario`) REFERENCES `diario` (`cod_diario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
 -- Dumping data for table `turma`
@@ -337,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-10-01  9:18:58
+-- Dump completed on 2019-10-11 19:50:54

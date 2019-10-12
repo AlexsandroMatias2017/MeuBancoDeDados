@@ -1,11 +1,11 @@
 import mysql.connector
 
 conexao = mysql.connector.connect(
-    host="localhost",  # Configure de acordo com seu banco
-    user="matias",  # de dados esta seção.
+    host="localhost", 
+    user="matias",  
     passwd="matias",
-    database="qacademico"  # Chama o banco de dados ja logado.
-    # Nesse caso ele ainda não chama nenhum pois, ainda n está criado
+    database=""  
+   
 )
 
 cursor = conexao.cursor()
@@ -24,5 +24,49 @@ def executeSql(filename):
             print("Comando falhou: ", msg)
 
 
-executeSql("somenteEstrutura.sql")
-print("banco de dados criado com sucesso!")
+
+#def iteracaoDosDados():
+#    for x in cursor:
+#        print(x)
+
+def criacaoBanco():
+    executeSql("somenteEstrutura.sql")
+    print("banco de dados criado com sucesso!")
+
+def insercaoDados():
+    executeSql("somenteDados.sql")
+    print("banco de dados criado com sucesso!")
+
+
+def mostrarBancos():
+    cursor = conexao.cursor()
+    cursor.execute("show databases")
+    for x in cursor:
+        print(x)
+
+def escolherBanco():
+    mostrarBancos()
+    bancoSelecionado = input("Digite o Banco de dados: ")
+    print("%s selecionado." , bancoSelecionado)
+
+
+escolherBanco()
+
+
+        
+#def mostrarTabelas():
+#    cursor = conexao.cursor()
+#    cursor.execute("show tables")
+#    for x in cursor:
+#        print(x)
+
+#mostrarBancos()
+
+
+# criacaoBanco()
+# insercaoDados()
+#mostrarTabelas()
+
+
+
+
