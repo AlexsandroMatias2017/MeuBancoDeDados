@@ -6,10 +6,6 @@
 # pip install mysql-conector
 # pip3 install mysql-conector
 # python3 -m pip install --user mysql-connector-python
-
-
-
-
 import mysql.connector
 
 conexao = mysql.connector.connect(
@@ -37,9 +33,28 @@ def executeSql(filename):
 
 
 
-#def iteracaoDosDados():
-#    for x in cursor:
-#        print(x)
+def menuPrincipal():
+    print("O que deseja fazer: ")
+    print("1 - Consultar um Banco de Dados.")
+    print("2 - Remover um Banco de Dados.")
+    print("3 - Consultar uma tabela específica de um Banco de Dados.")
+    opcao = input("____________________________________________________________________________\n\n")
+
+    if opcao == '1':
+        mostrarBancos()
+
+    if opcao == '2':
+        removerBanco()
+
+
+    if opcao == '3':
+        mostrarTabelas()
+
+
+def iteracaoDosDados(sqlc):
+   cursor.execute(sqlc)
+   for x in cursor:
+      print(x)
 
 def criacaoBanco():
     executeSql("somenteEstrutura.sql")
@@ -51,32 +66,28 @@ def insercaoDados():
 
 
 def mostrarBancos():
-    cursor = conexao.cursor()
-    cursor.execute("show databases")
-    for x in cursor:
-        print(x)
+    iteracaoDosDados("show databases")
+
+def mostrarTabelas():
+    escolherBanco()
+    iteracaoDosDados("show tables")
+    tabela = input("Escolha uma das tabelas acima:")
+    consulta = "select * from  " + tabela
+    iteracaoDosDados(consulta)
 
 def escolherBanco():
     mostrarBancos()
     bancoSelecionado = input("Digite o Banco de dados: ")
-    cursor.execute("use" + bancoSelecionado)
+    consulta = "use " + bancoSelecionado + ";"
+    iteracaoDosDados(consulta)
 
+def removerBanco():
+    mostrarBancos()
+    bancoSelecionado = input("Digite o Banco de dados a ser removido: ")
+    consulta = "drop database " + bancoSelecionado + ";"
+    iteracaoDosDados(consulta)
 
-escolherBanco()
-
-#def mostrarTabelas():
-#    cursor = conexao.cursor()
-#    cursor.execute("show tables")
-#    for x in cursor:
-#        print(x)
-
-#mostrarBancos()
-
-
-# criacaoBanco()
-# insercaoDados()
-#mostrarTabelas()
-
+menuPrincipal()
 
 
 
