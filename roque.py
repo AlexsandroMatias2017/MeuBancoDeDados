@@ -1,3 +1,15 @@
+# sudo install python-pip
+# sudo apt install python-pip
+# pip install mysql-conector
+# pip install pip3
+# sudo apt install python3-pip
+# pip install mysql-conector
+# pip3 install mysql-conector
+# python3 -m pip install --user mysql-connector-python
+
+
+
+
 import mysql.connector
 
 conexao = mysql.connector.connect(
