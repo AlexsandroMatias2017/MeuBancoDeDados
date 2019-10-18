@@ -1,7 +1,6 @@
 # sudo install python-pip
 # sudo apt install python-pip
 # pip install mysql-conector
-# pip install pip3
 # sudo apt install python3-pip
 # pip install mysql-conector
 # pip3 install mysql-conector
@@ -38,6 +37,9 @@ def menuPrincipal():
     print("1 - Consultar um Banco de Dados.")
     print("2 - Remover um Banco de Dados.")
     print("3 - Consultar uma tabela específica de um Banco de Dados.")
+    print("4 - Clonar um Banco de Dados.")
+
+
     opcao = input("____________________________________________________________________________\n\n")
 
     if opcao == '1':
@@ -49,6 +51,9 @@ def menuPrincipal():
 
     if opcao == '3':
         mostrarTabelas()
+
+    if opcao == '4':
+        clonarBanco()
 
 
 def iteracaoDosDados(sqlc):
@@ -62,7 +67,7 @@ def criacaoBanco():
 
 def insercaoDados():
     executeSql("somenteDados.sql")
-    print("banco de dados criado com sucesso!")
+    print("banco de dados inseridos com sucesso!")
 
 
 def mostrarBancos():
@@ -87,7 +92,17 @@ def removerBanco():
     consulta = "drop database " + bancoSelecionado + ";"
     iteracaoDosDados(consulta)
 
-menuPrincipal()
+def clonarBanco():
+    mostrarBancos()
+    bancoSelecionado = input("Digite o Banco de dados a ser clonado: ")
+    
+
+
+
+# menuPrincipal()
+criacaoBanco()
+insercaoDados()
+
 
 
 
