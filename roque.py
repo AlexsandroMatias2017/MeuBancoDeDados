@@ -38,7 +38,8 @@ def menuPrincipal():
 	print("2 - Remover um Banco de Dados.")
 	print("3 - Consultar uma tabela específica de um Banco de Dados.")
 	print("4 - Clonar um Banco de Dados.")
-	print("8 - Criar um Banco de Dados: ")
+	print("7 - Realizar uma consulta manualmente ao Banco de Dados. ")
+	print("8 - Criar um Banco de Dados. ")
 	print("9 - Sair")
 
 
@@ -56,6 +57,9 @@ def menuPrincipal():
 
 	if opcao == '4':
 		clonarBanco()
+
+	if opcao == '7':
+		consultaManual()
 
 	if opcao == '8':
 		criarManualDoBanco()
@@ -91,6 +95,11 @@ def insercaoDados():
 	print("banco de dados inseridos com sucesso!")
 	# menuPrincipal()
 
+def consultaManual():
+	escolherBanco()
+	mostrarTabelas()
+	consulta = input("Digite manualmente a consulta que gostaria de fazer")
+	iteracaoDosDados()
 
 
 
@@ -118,8 +127,7 @@ def removerBanco():
 def clonarBanco():
 	mostrarBancos()
 	bancoSelecionado = input("Digite o Banco de dados a ser clonado: ")
-	# menuPrincipal()
-	
+		
 
 def sair():
 	exit()
