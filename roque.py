@@ -98,8 +98,8 @@ def insercaoDados():
 def consultaManual():
 	escolherBanco()
 	mostrarTabelas()
-	consulta = input("Digite manualmente a consulta que gostaria de fazer")
-	iteracaoDosDados()
+	consulta = input("Digite manualmente a consulta que gostaria de fazer: ")
+	iteracaoDosDados(consulta)
 
 
 
@@ -138,7 +138,7 @@ while opcao != 9:
 	menuPrincipal()
 # criacaoBanco()
 # insercaoDados()
-# 
+
 
 
 
