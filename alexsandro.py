@@ -11,7 +11,7 @@ conexao = mysql.connector.connect(
 	host="localhost", 
 	user="matias",  
 	passwd="matias",
-	database=""  
+	database="roque"  
    
 )
 
@@ -81,30 +81,15 @@ def iteracaoDosDados(sqlc):
 
 def pesquisarAluno():
 	aluno = input("Digite o nome do aluno que deseja pesquisar: ")
+	print("O que deseja saber sobre o aluno: ")
+	print("1 - Quais disciplinas ele está matriculado. ")
+	print("2 - Quais quais suas notas. ")
+	print("3 - Qual curso ele está matriculado. ")
 
-	iteracaoDosDados("show databases")
-	# menuPrincipal()
+	if opcao == '1':
+		alunoDisciplina(aluno)
 
-def criarManualDoBanco():
-	bancoCriado = input("Digite o Banco de dados a ser criado: ")
-	consulta = "create database " + bancoCriado + ";"
-	iteracaoDosDados(consulta)
-
-def criacaoBanco():
-	executeSql("somenteEstrutura.sql")
-	print("banco de dados criado com sucesso!")
-	# menuPrincipal()
-
-def insercaoDados():
-	executeSql("somenteDados.sql")
-	print("banco de dados inseridos com sucesso!")
-	# menuPrincipal()
-
-def consultaManual():
-	escolherBanco()
-	mostrarTabelas()
-	consulta = input("Digite manualmente a consulta que gostaria de fazer: ")
-	iteracaoDosDados(consulta)
+	
 
 
 
@@ -117,33 +102,25 @@ def mostrarTabelas():
 	# menuPrincipal()
 
 
-def escolherBanco():
-	pesquisarAluno()
-	bancoSelecionado = input("Digite o Banco de dados: ")
-	consulta = "use " + bancoSelecionado + ";"
-	iteracaoDosDados(consulta)
 
-def removerBanco():
-	pesquisarAluno()
-	bancoSelecionado = input("Digite o Banco de dados a ser removido: ")
-	consulta = "drop database " + bancoSelecionado + ";"
-	iteracaoDosDados(consulta)
 
-def clonarBanco():
-	pesquisarAluno()
-	bancoSelecionado = input("Digite o Banco de dados a ser clonado: ")
-		
+
+def alunoDisciplina():
+	consulta = "SELECT aluno.nome, nota_avaliacao.nota,avaliacao.unidade FROM nota_avaliacao INNER JOIN aluno on aluno.idaluno = nota_avaliacao.idaluno 	INNER JOIN avaliacao 	ON nota_avaliacao.idavaliacao = avaliacao.idavaliacao 	WHERE aluno.nome LIKE 'alexsandro%';"
+	iteracaoDosDados(consulta)		
+
+
+
 
 def sair():
 	exit()
 
 opcao = ''
 
-while opcao != 9:
-	menuPrincipal()
-# criacaoBanco()
-# insercaoDados()
+# while opcao != 9:
+# 	menuPrincipal()
 
+alunoDisciplina()
 
 
 
