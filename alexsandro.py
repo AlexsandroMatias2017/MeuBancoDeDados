@@ -34,39 +34,21 @@ def executeSql(filename):
 
 def menuPrincipal():
 	print("O que deseja fazer: ")
-	print("1 - Pesquisar sobre determinado aluno.")
-	print("2 - Pesquisar sobre determinado professor.")
+	print("1 - Pesquisar sobre determinado(a) aluno(a).")
+	print("2 - Pesquisar sobre determinado(a) professor(a).")
 	print("3 - Pesquisar sobre determinada disciplina.")
 	print("4 - Pesquisar sobre determinada matriz curricular")
-	print("5 - Pesquisar sobre determinado dependente do professor")
-	print("6 - Pesquisar sobre determinado curso")
-
-
-	
+	print("5 - Pesquisar sobre determinado(a) dependente do professor")
+	print("6 - Pesquisar sobre determinado curso")	
 	print("9 - Sair")
-
-
 	opcao = input("____________________________________________________________________________\n\n")
 
 	if opcao == '1':
 		pesquisarAluno()
-
+	
 	if opcao == '2':
-		removerBanco()
-
-
-	if opcao == '3':
-		mostrarTabelas()
-
-	if opcao == '4':
-		clonarBanco()
-
-	if opcao == '7':
-		consultaManual()
-
-	if opcao == '8':
-		criarManualDoBanco()
-
+		pesquisarProfessor()
+	
 
 	if opcao == '9':
 		sair()
@@ -78,49 +60,106 @@ def iteracaoDosDados(sqlc):
    print("____________________________________________________________________________")
 
 
+### Início dos métodos somente para alunos ###
 
 def pesquisarAluno():
-	aluno = input("Digite o nome do aluno que deseja pesquisar: ")
-	print("O que deseja saber sobre o aluno: ")
-	print("1 - Quais disciplinas ele está matriculado. ")
-	print("2 - Quais quais suas notas. ")
-	print("3 - Qual curso ele está matriculado. ")
+	aluno = input("Digite o nome do aluno(a) que deseja pesquisar: ")
+	print("O que deseja saber sobre o aluno(a): ")
+	print("1 - Quais disciplinas ele está matriculado(a). ")
+	print("2 - Quais suas notas. ")
+	print("3 - Qual curso ele está matriculado(a). ")
+	opcao = input("____________________________________________________________________________\n\n")
+
 
 	if opcao == '1':
 		alunoDisciplina(aluno)
 
-	
+	if opcao == '2':
+		alunoNotas(aluno)
 
+	if opcao == '3':
+		alunocurso(aluno)
 
-
-def mostrarTabelas():
-	escolherBanco()
-	iteracaoDosDados("show tables")
-	tabela = input("Escolha uma das tabelas acima:")
-	consulta = "select * from  " + tabela
-	iteracaoDosDados(consulta)
-	# menuPrincipal()
-
-
-
-
-
-def alunoDisciplina():
-	consulta = "SELECT aluno.nome, nota_avaliacao.nota,avaliacao.unidade FROM nota_avaliacao INNER JOIN aluno on aluno.idaluno = nota_avaliacao.idaluno 	INNER JOIN avaliacao 	ON nota_avaliacao.idavaliacao = avaliacao.idavaliacao 	WHERE aluno.nome LIKE 'alexsandro%';"
+def alunoDisciplina(aluno):
+	consulta = "SELECT aluno.nome as aluno, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.nome LIKE '"+aluno+"%'"
+	print(consulta)
 	iteracaoDosDados(consulta)		
 
 
+def alunoNotas(aluno):
+	consulta = "SELECT aluno.nome as aluno, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.nome LIKE '" +aluno+ "%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)	
+
+
+def alunocurso(aluno):
+	consulta = "SELECT aluno.nome as aluno, curso.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc  inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on curso.cod_curso = matriz_curricular.curso WHERE aluno.nome LIKE '" +aluno+ "%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+### Final dos métodos somente para alunos ###
+
+##################
+
+
+### Início dos métodos somente para professores ###
+
+def pesquisarProfessor():
+	professor = input("Digite o nome do professor que deseja pesquisar: ")
+	print("O que deseja saber sobre o professor: ")
+	print("1 - Quais disciplinas ministradas por ele. ")
+	print("2 - Quais suas notas dadas por ele. ")
+	print("3 - Qual curso ele está vinculado. ")
+	print("4 - Quais seus dependentes. ")
+	opcao = input("____________________________________________________________________________\n\n")
+	
+	if opcao == '1':
+		professorDisciplina(professor)
+
+	if opcao == '2':
+		professorNotas(professor)
+
+	if opcao == '3':
+		professorcurso(professor)
+
+	if opcao == '4':
+		professorDependente(professor)
+
+def professorDisciplina(professor):
+	consulta = "SELECT professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE professor.nome LIKE '" +professor+ "%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+
+def professorNotas(professor):
+	consulta = "SELECT professor.nome as aluno, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE professor.nome LIKE '" +professor+ "%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)	
+
+
+def professorcurso(professor):
+	consulta = "SELECT professor.nome as aluno, curso.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	o avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc  inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on curso.cod_curso = matriz_curricular.curso WHERE professor.nome LIKE '" +professor+ "%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+def professorDependente(professor):
+	consulta = "select professor.nome, dependente.nome, from professor join dependente on dependente.professor_ = professor.idprofessor WHERE professor.nome LIKE '" +professor+ "%' "
+	print(consulta)
+	iteracaoDosDados(consulta)
+
+### Final dos métodos somente para professores ###
 
 
 def sair():
+	print("Fim do programa.")
 	exit()
 
 opcao = ''
 
-# while opcao != 9:
-# 	menuPrincipal()
+while opcao != 9:
+	menuPrincipal()
 
-alunoDisciplina()
+alunoNotas(aluno)
 
 
 
