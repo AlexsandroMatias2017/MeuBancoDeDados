@@ -132,7 +132,7 @@ def professorDisciplina(professor):
 
 
 def professorNotas(professor):
-	consulta = "SELECT professor.nome as aluno, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE professor.nome LIKE '" +professor+ "%'"
+	consulta = "SELECT professor.nome, componente_curricular.nome, curso.nome, aluno.nome, nota_avaliacao.nota, nota_avaliacao.avaliacao, nota_avaliacao.observação FROM diario INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc inner join professor on professor.idprofessor = diario.professor_principal inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on matriz_curricular.curso = curso.cod_curso INNER JOIN avaliacao on avaliacao.diario = diario.cod_diario INNER JOIN nota_avaliacao on nota_avaliacao.avaliacao = avaliacao.idavaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno WHERE professor.nome LIKE '" +professor+ "%'" 
 	# print(consulta)
 	iteracaoDosDados(consulta)	
 
