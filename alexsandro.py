@@ -107,7 +107,7 @@ def alunocurso(aluno):
 def pesquisarProfessor():
 	professor = input("Digite o nome do professor que deseja pesquisar: ")
 	print("O que deseja saber sobre o professor: ")
-	print("1 - Quais disciplinas ministradas por ele. ")
+	print("1 - Quais disciplinas ministradas por ele em determinado curso. ")
 	print("2 - Quais suas notas dadas por ele. ")
 	print("3 - Qual curso ele está vinculado. ")
 	print("4 - Quais seus dependentes. ")
@@ -126,7 +126,7 @@ def pesquisarProfessor():
 		professorDependente(professor)
 
 def professorDisciplina(professor):
-	consulta = "SELECT professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE professor.nome LIKE '" +professor+ "%'"
+	consulta = "SELECT professor.nome, componente_curricular.nome, professor.siape, professor.titulo, curso.nome FROM diario INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc inner join professor on professor.idprofessor = diario.professor_principal inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on matriz_curricular.curso = curso.cod_curso WHERE professor.nome LIKE '" +professor+ "%'" 
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
