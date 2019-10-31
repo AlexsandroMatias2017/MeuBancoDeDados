@@ -38,7 +38,6 @@ def menuPrincipal():
 	print("2 - Pesquisar sobre determinado(a) professor(a).")
 	print("3 - Pesquisar sobre determinada disciplina.")
 	print("4 - Pesquisar sobre determinada matriz curricular")
-	print("5 - Pesquisar sobre determinado(a) dependente do professor")
 	print("6 - Pesquisar sobre determinado curso")	
 	print("9 - Sair")
 	opcao = input("____________________________________________________________________________\n\n")
@@ -64,6 +63,8 @@ def iteracaoDosDados(sqlc):
 
 def pesquisarAluno():
 	aluno = input("Digite o nome do aluno(a) que deseja pesquisar: ")
+	buscaAlunoInicial(aluno)
+	matriculaAluno = input("Digite a matrícula do aluno(a) que deseja pesquisar: ")
 	print("O que deseja saber sobre o aluno(a): ")
 	print("1 - Quais disciplinas ele está matriculado(a). ")
 	print("2 - Quais suas notas. ")
@@ -72,16 +73,23 @@ def pesquisarAluno():
 
 
 	if opcao == '1':
-		alunoDisciplina(aluno)
+		alunoDisciplina(matriculaAluno)
 
 	if opcao == '2':
-		alunoNotas(aluno)
+		alunoNotas(matriculaAluno)
 
 	if opcao == '3':
-		alunocurso(aluno)
+		alunocurso(matriculaAluno)
 
-def alunoDisciplina(aluno):
-	consulta = "SELECT aluno.nome as aluno, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.nome LIKE '"+aluno+"%'"
+def buscaAlunoInicial(aluno):
+	consulta = "SELECT aluno.nome, aluno.matricula from aluno WHERE aluno.nome LIKE '"+aluno+"%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+
+def alunoDisciplina(matricula):
+	
+	consulta = "SELECT aluno.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
 	print(consulta)
 	iteracaoDosDados(consulta)		
 
@@ -158,8 +166,7 @@ opcao = ''
 
 while opcao != 9:
 	menuPrincipal()
-
-alunoNotas(aluno)
-
+# aluno = "alexsandro"
+# buscaAlunoInicial(aluno)
 
 
