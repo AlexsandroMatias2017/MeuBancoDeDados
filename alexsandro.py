@@ -51,6 +51,13 @@ def menuPrincipal():
 	if opcao == '3':
 		pesquisarcomponente()
 
+
+
+
+	if opcao == '6':
+		pesquisarCurso()
+
+
 	if opcao == '9':
 		sair()
 
@@ -216,6 +223,43 @@ def componentecurso(matricula):
 	iteracaoDosDados(consulta)		
 
 ### Final dos métodos somente para componentes curriculares(disciplinas) ###
+
+
+
+
+### Início dos métodos somente para curso ###
+
+def pesquisarCurso():
+	curso = input("Digite o nome do curso que deseja pesquisar: ")
+	buscaCursoInicial(curso)
+	codigoCurso = input("Digite o código do curso que deseja pesquisar: ")
+	print("O que deseja saber sobre o curso: ")
+	print("1 - Quais alunos(as) estão matriculados num determinado curso. ")
+	print("2 - Quais professores(as) estão vinculados a um curso. ")
+	opcao = input("____________________________________________________________________________\n\n")
+
+
+	if opcao == '1':
+		cursoAluno(codigoCurso)
+
+	if opcao == '2':
+		cursoProfessor(codigoCurso)
+
+	
+def buscaCursoInicial(curso):
+	consulta = "SELECT curso.cod_curso, curso.nome from curso WHERE curso.nome LIKE '%"+curso+"%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+def cursoAluno(curso):
+	consulta = "SELECT distinct curso.cod_curso,curso.nome,aluno.nome from curso inner join matriz_curricular on matriz_curricular.curso = curso.cod_curso inner join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join diario on diario.componente = componente_curricular.cod_cc inner join turma on diario.cod_diario = turma.diario inner join matriculas_componente on matriculas_componente.turma = turma.cod_turma inner join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE curso.cod_curso  = " +curso 
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+
+### Final dos métodos somente para curso ###
+
+
 
 
 def sair():
