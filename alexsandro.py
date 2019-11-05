@@ -62,10 +62,17 @@ def menuPrincipal():
 		sair()
 
 def iteracaoDosDados(sqlc):
-   cursor.execute(sqlc)
+
+   cursor.execute(sqlc)   
+   vazia = 1
    for x in cursor:
-   	print(x)
+      vazia = 0
+      print(x)
+   else:
+      if vazia:
+         print("Nenhum resultado encontrado")
    print("____________________________________________________________________________")
+
 
 
 ### Início dos métodos somente para alunos ###
@@ -108,7 +115,7 @@ def alunoNotas(matricula):
 	# print(consulta)
 	iteracaoDosDados(consulta)	
 
-
+	
 def alunocurso(matricula):
 	consulta = "SELECT aluno.nome as aluno, curso.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc  inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on curso.cod_curso = matriz_curricular.curso WHERE aluno.matricula = " +matricula
 	# print(consulta)
