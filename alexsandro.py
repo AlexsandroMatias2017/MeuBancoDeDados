@@ -51,6 +51,8 @@ def menuPrincipal():
 	if opcao == '3':
 		pesquisarcomponente()
 
+	if opcao == '4':
+		pesquisarMatriz()
 
 
 
@@ -61,17 +63,22 @@ def menuPrincipal():
 	if opcao == '9':
 		sair()
 
-def iteracaoDosDados(sqlc):
+# def iteracaoDosDados(sqlc):
 
-   cursor.execute(sqlc)   
-   vazia = 1
-   for x in cursor:
-      vazia = 0
-      print(x)
-   else:
-      if vazia:
-         print("Nenhum resultado encontrado")
-   print("____________________________________________________________________________")
+#    cursor.execute(sqlc) 
+#    vazia = 1
+#    for x in cursor:
+#       vazia = 0
+#       print(x)
+#    else:
+#       if vazia:
+#          print("Nenhum resultado encontrado")
+#    print("____________________________________________________________________________")
+
+# 	myresult = cursor.fetchall()
+# 	for x in myresult:
+# 	print(x)
+
 
 
 
@@ -100,20 +107,35 @@ def pesquisarAluno():
 def buscaAlunoInicial(aluno):
 	consulta = "SELECT aluno.nome, aluno.matricula from aluno WHERE aluno.nome LIKE '%"+aluno+"%'"
 	# print(consulta)
-	iteracaoDosDados(consulta)		
+	# iteracaoDosDados(consulta)
+	cursor.execute(consulta)
+	myresult = cursor.fetchall()
+	conversao = str(myresult).strip('[]')
+	print(conversao)
+	# for x in myresult:
+	# 	print(x)		
 
 
 def alunoDisciplina(matricula):
 	
 	consulta = "SELECT aluno.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
 	# print(consulta)
-	iteracaoDosDados(consulta)		
+	# iteracaoDosDados(consulta)	
+	cursor.execute(consulta)
+	myresult = cursor.fetchall()
+	print(type(myresult))
+	for x in myresult:
+		print(x)		
 
 
 def alunoNotas(matricula):
 	consulta = "SELECT aluno.nome as aluno, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
 	# print(consulta)
-	iteracaoDosDados(consulta)	
+	# iteracaoDosDados(consulta)
+	cursor.execute(consulta)
+	myresult = cursor.fetchall()
+	conversao = str(myresult).strip('[]')
+	print(conversao)
 
 	
 def alunocurso(matricula):
@@ -265,6 +287,41 @@ def cursoAluno(curso):
 
 
 ### Final dos métodos somente para curso ###
+
+
+
+### Início dos métodos somente para matriz###
+
+def pesquisarMatriz():
+	matriz= input("Digite o nome do matriz que deseja pesquisar: ")
+	buscaCursoInicial(matriz)
+	print("O que deseja saber sobre as matrizes: ")
+	print("1 - Todas a matrizes. ")
+	print("2 - Matrizes em vigor. ")
+	print("3 - Matrizes expiradas. ")
+	opcao = input("____________________________________________________________________________\n\n")
+
+
+	if opcao == '1':
+		cursoAluno(codigoCurso)
+
+	if opcao == '2':
+		cursoProfessor(codigoCurso)
+
+	
+def buscaCursoInicial():
+	consulta = "SELECT cod_matriz, nome, situacao FROM matriz_curricular"
+	# consulta = "SELECT curso.cod_curso, curso.nome from matriz WHERE curso.nome LIKE '%"+matriz+"%'"
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+def cursoAluno(curso):
+	consulta = "SELECT distinct curso.cod_curso,curso.nome,aluno.nome from matrizinner join matriz_curricular on matriz_curricular.matriz= curso.cod_matrizinner join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join diario on diario.componente = componente_curricular.cod_cc inner join turma on diario.cod_diario = turma.diario inner join matriculas_componente on matriculas_componente.turma = turma.cod_turma inner join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE curso.cod_matriz = " +matriz
+	# print(consulta)
+	iteracaoDosDados(consulta)		
+
+
+### Final dos métodos somente para matriz###
 
 
 
