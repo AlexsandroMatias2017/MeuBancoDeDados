@@ -107,16 +107,9 @@ def pesquisarAluno():
 def buscaAlunoInicial(aluno):
 	consulta = "SELECT aluno.nome, aluno.matricula from aluno WHERE aluno.nome LIKE '%"+aluno+"%'"
 	# print(consulta)
-	print("\tNOME\t    MATRÍCULA")
 	iteracaoDosDados(consulta)
 
-
-	# cursor.execute(consulta)
-	# myresult = cursor.fetchall()
-	# conversao = str(myresult).strip('[]')
-	# print(conversao)
-	# for x in myresult:
-	# 	print(x)		
+		
 
 
 def alunoDisciplina(matricula):
@@ -132,16 +125,9 @@ def alunoDisciplina(matricula):
 
 
 def alunoNotas(matricula):
-	consulta = "SELECT aluno.nome as aluno, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
+	consulta = "SELECT aluno.nome as aluno, date_format(avaliacao.data_avaliacao,'%d-%m-%Y'), nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
 	# print(consulta)
 	iteracaoDosDados(consulta)
-
-
-	# cursor.execute(consulta)
-	# myresult = cursor.fetchall()
-	# conversao = str(myresult).strip('[]')
-	# conversao = 
-	# print(conversao)
 
 	
 def alunocurso(matricula):
@@ -202,8 +188,8 @@ def professorcurso(siape):
 	iteracaoDosDados(consulta)		
 
 def professorDependente(siape):
-	consulta = "select professor.nome, dependente.nome, from professor join dependente on dependente.professor_ = professor.idprofessor WHERE professor.nome  WHERE professor.siape = " +siape
-	print(consulta)
+	consulta = "SELECT professor.nome, dependente.nome from dependente inner join professor on dependente.professor_= professor.idprofessor where professor.siape = " +siape 
+	# print(consulta)
 	iteracaoDosDados(consulta)
 
 ### Final dos métodos somente para professores ###

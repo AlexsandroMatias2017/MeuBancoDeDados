@@ -38,8 +38,8 @@ def menuPrincipal():
 	print("2 - Remover um Banco de Dados.")
 	print("3 - Consultar uma tabela específica de um Banco de Dados.")
 	print("4 - Clonar um Banco de Dados.")
-	print("7 - Realizar uma consulta manualmente ao Banco de Dados. ")
-	print("8 - Criar um Banco de Dados. ")
+	print("5 - Realizar uma consulta manualmente ao Banco de Dados. ")
+	print("6 - Criar um Banco de Dados. ")
 	print("9 - Sair")
 
 
@@ -61,7 +61,7 @@ def menuPrincipal():
 	if opcao == '7':
 		consultaManual()
 
-	if opcao == '8':
+	if opcao == '6':
 		criarManualDoBanco()
 
 
@@ -69,10 +69,10 @@ def menuPrincipal():
 		sair()
 
 def iteracaoDosDados(sqlc):
-   cursor.execute(sqlc)
-   for x in cursor:
-   	print(x)
-   print("____________________________________________________________________________")
+	cursor.execute(sqlc)
+	for x in cursor:
+		print(x)
+	print("____________________________________________________________________________")
 
 
 
