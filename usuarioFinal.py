@@ -11,7 +11,7 @@ conexao = mysql.connector.connect(
 	host="localhost", 
 	user="matias",  
 	passwd="matias",
-	database="roque"  
+	database=""  
    
 )
 
@@ -305,19 +305,19 @@ def pesquisarMatriz():
 		MatrizesExpiradas()
 	
 def todasMatrizes():
-	consulta = "SELECT nome, data, situacao FROM roque.matriz_curricular;"
+	consulta = "SELECT nome, data, situacao FROM matriz_curricular;"
 	# consulta = "SELECT Matriz.cod_Matriz, Matriz.nome from matriz WHERE Matriz.nome LIKE '%"+matriz+"%'"
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
 
 def MatrizesEmVigor():
-	consulta = "SELECT nome, data, situacao FROM roque.matriz_curricular where situacao = 'em vigor'"
+	consulta = "SELECT nome, data, situacao FROM matriz_curricular where situacao = 'em vigor'"
 	# print(consulta)
 	iteracaoDosDados(consulta)
 
 def MatrizesExpiradas():
-	consulta = "SELECT nome, data, situacao FROM roque.matriz_curricular where situacao = 'expirada'"
+	consulta = "SELECT nome, data, situacao FROM matriz_curricular where situacao = 'expirada'"
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
