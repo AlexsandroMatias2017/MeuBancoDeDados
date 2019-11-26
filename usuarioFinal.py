@@ -11,7 +11,7 @@ conexao = mysql.connector.connect(
 	host="localhost", 
 	user="matias",  
 	passwd="matias",
-	database=""  
+	database="sisacad"  
    
 )
 
@@ -275,7 +275,12 @@ def buscaCursoInicial(curso):
 def cursoAluno(curso):
 	consulta = "SELECT distinct curso.cod_curso,curso.nome,aluno.nome from curso inner join matriz_curricular on matriz_curricular.curso = curso.cod_curso inner join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join diario on diario.componente = componente_curricular.cod_cc inner join turma on diario.cod_diario = turma.diario inner join matriculas_componente on matriculas_componente.turma = turma.cod_turma inner join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE curso.cod_curso  = " +curso 
 	# print(consulta)
-	iteracaoDosDados(consulta)		
+	iteracaoDosDados(consulta)
+	
+def cursoAluno(curso):
+	consulta = "SELECT distinct curso.cod_curso,curso.nome,aluno.nome from curso inner join matriz_curricular on matriz_curricular.curso = curso.cod_curso inner join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join diario on diario.componente = componente_curricular.cod_cc inner join turma on diario.cod_diario = turma.diario inner join matriculas_componente on matriculas_componente.turma = turma.cod_turma inner join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE curso.cod_curso  = " +curso 
+	# print(consulta)
+	iteracaoDosDados(consulta)			
 
 
 ### Final dos métodos somente para curso ###

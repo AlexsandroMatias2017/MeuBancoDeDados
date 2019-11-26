@@ -1,7 +1,4 @@
-# sudo install python-pip
-# sudo apt install python-pip
-# pip install mysql-conector
-# sudo apt install python3-pip
+# sudo install python-pip python3-pip
 # pip install mysql-conector
 # pip3 install mysql-conector
 # python3 -m pip install --user mysql-connector-python
@@ -36,10 +33,7 @@ def menuPrincipal():
 	print("O que deseja fazer: ")
 	print("1 - Visualizar os Bancos de Dados existentes.")
 	print("2 - Remover um Banco de Dados.")
-	print("3 - Consultar uma tabela específica de um Banco de Dados.")
-	print("4 - Clonar um Banco de Dados.")
-	print("5 - Realizar uma consulta manualmente ao Banco de Dados. ")
-	print("6 - Criar um Banco de Dados. ")
+	print("3 - Criar um Banco de Dados. ")
 	print("9 - Sair")
 
 
@@ -53,17 +47,7 @@ def menuPrincipal():
 
 
 	if opcao == '3':
-		mostrarTabelas()
-
-	if opcao == '4':
-		clonarBanco()
-
-	if opcao == '7':
-		consultaManual()
-
-	if opcao == '6':
 		criarManualDoBanco()
-
 
 	if opcao == '9':
 		sair()
@@ -78,7 +62,6 @@ def iteracaoDosDados(sqlc):
 
 def mostrarBancos():
 	iteracaoDosDados("show databases")
-	# menuPrincipal()
 
 def criarManualDoBanco():
 	bancoCriado = input("Digite o Banco de dados a ser criado: ")
@@ -88,28 +71,10 @@ def criarManualDoBanco():
 def criacaoBanco():
 	executeSql("somenteEstrutura.sql")
 	print("banco de dados criado com sucesso!")
-	# menuPrincipal()
 
 def insercaoDados():
 	executeSql("somenteDados.sql")
 	print("banco de dados inseridos com sucesso!")
-	# menuPrincipal()
-
-def consultaManual():
-	escolherBanco()
-	mostrarTabelas()
-	consulta = input("Digite manualmente a consulta que gostaria de fazer: ")
-	iteracaoDosDados(consulta)
-
-
-
-def mostrarTabelas():
-	escolherBanco()
-	iteracaoDosDados("show tables")
-	tabela = input("Escolha uma das tabelas acima:")
-	consulta = "select * from  " + tabela
-	iteracaoDosDados(consulta)
-	# menuPrincipal()
 
 
 def escolherBanco():
@@ -123,10 +88,6 @@ def removerBanco():
 	bancoSelecionado = input("Digite o Banco de dados a ser removido: ")
 	consulta = "drop database " + bancoSelecionado + ";"
 	iteracaoDosDados(consulta)
-
-def clonarBanco():
-	mostrarBancos()
-	bancoSelecionado = input("Digite o Banco de dados a ser clonado: ")
 		
 
 def sair():

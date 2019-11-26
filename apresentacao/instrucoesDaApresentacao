@@ -1,0 +1,22 @@
+presentação final dos Projetos de BD1
+
+Instruções:
+
+    A apresentação deverá ser feita em formato de slides
+    Apenas o formato PDF será aceito para submissão
+    A apresentação deve conter: 
+
+    Capa - Nome do projeto e equipe
+    Agenda - indicando os tópicos a serem tratados na apresentação
+    Introdução - Descrição geral do projeto
+    Minimundo - Explicação em formato de tópicos dos elementos do projeto
+    MER - Modelo entidade relacionamento do projeto
+    DDL - Exemplo do esquema (SQL) de duas tabelas usadas no projeto
+    DML - Exemplo de duas consultas SQL usadas no projeto
+    Arquitetura - Mostrar como o código do projeto está organizado (não mostrar código, apenas quais foram os padrões ou como estruturou o código. Exemplo, camadas, módulos, etc)
+    UI - Apresentar telas (ou prints do terminal) de interface com o usuário
+    Código - Alguns exemplos de trechos de código que julgar interessante (ao menos 3 passagens)
+    Dificuldades e Lições Aprendidas - Apresentar quais foram as principais dificuldades tanto na disciplina como durante o projeto, além de como foram superadas (ou não)
+    Conclusão
+
+    O grupo pode usar de outros recursos no dia da apresentação, como áudio e vídeo. 
