@@ -126,7 +126,6 @@ def alunoDisciplina(matricula):
 
 def alunoNotas(matricula):
 	consulta = "SELECT aluno.nome as aluno, date_format(avaliacao.data_avaliacao,'%d-%m-%Y'), nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE aluno.matricula = " +matricula
-	# print(consulta)
 	iteracaoDosDados(consulta)
 
 	
@@ -183,7 +182,7 @@ def professorNotas(siape):
 
 
 def professorcurso(siape):
-	consulta = "SELECT professor.nome as aluno, curso.nome FROM nota_avaliacao INNER JOIN aluno on aluno.cod_aluno = nota_avaliacao.aluno INNER join avaliacao 	o avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc  inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on curso.cod_curso = matriz_curricular.curso  WHERE professor.siape = " +siape
+	consulta = "SELECT professor.nome, curso.nome from curso join matriz_curricular on matriz_curricular.curso = curso.cod_curso join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz  join diario on diario.componente = componente_curricular.cod_cc join professor on diario.professor_principal = professor.idprofessor WHERE professor.siape = " +siape
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
@@ -204,14 +203,14 @@ def pesquisarcomponente():
 	buscacomponenteInicial(componente)
 	codigoComponente = input("Digite o código do componente que deseja pesquisar: ")
 	print("O que deseja saber sobre o componente(a): ")
-	print("1 - Quais disciplinas são ministradas para determinados alunos(as). ")
-	print("2 - Quais suas notas foram atribuídas em determinadas disciplinas. ")
-	print("3 - Quais cursos estão vinculados à determinada disciplinas. ")
+	print("1 - Quais aluno(a)s assistem aulas dessa disciplina. ")
+	print("2 - Quais suas notas foram atribuídas nesta disciplina. ")
+	print("3 - Quais cursos estão vinculados a essa disciplina. ")
 	opcao = input("____________________________________________________________________________\n\n")
 
 
 	if opcao == '1':
-		componenteDisciplina(codigoComponente)
+		componenteAluno(codigoComponente)
 
 	if opcao == '2':
 		componenteNotas(codigoComponente)
@@ -225,21 +224,21 @@ def buscacomponenteInicial(componente):
 	iteracaoDosDados(consulta)		
 
 
-def componenteDisciplina(matricula):
+def componenteAluno(codigoComponente):
 	
-	consulta = "SELECT componente.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN componente on componente.cod_componente = nota_avaliacao.componente INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE componente.matricula = " +matricula
+	consulta = "SELECT distinct componente_curricular.cod_cc, componente_curricular.nome, aluno.nome from componente_curricular join diario on diario.componente = componente_curricular.cod_cc join turma on turma.diario = diario.cod_diario join matriculas_componente on matriculas_componente.turma = turma.cod_turma join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE componente_curricular.cod_cc = " +codigoComponente
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
 
-def componenteNotas(matricula):
-	consulta = "SELECT componente.nome as componente, avaliacao.data_avaliacao, nota_avaliacao.nota, diario.turno, professor.nome, componente_curricular.nome FROM nota_avaliacao INNER JOIN componente on componente.cod_componente = nota_avaliacao.componente INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc 	WHERE componente.matricula = " +matricula
+def componenteNotas(codigoComponente):
+	consulta = "SELECT componente_curricular.nome, aluno.nome, nota_avaliacao.avaliacao, nota_avaliacao.nota from componente_curricular join diario on diario.componente = componente_curricular.cod_cc join turma on turma.diario = diario.cod_diario join matriculas_componente on matriculas_componente.turma = turma.cod_turma join aluno on matriculas_componente.aluno = aluno.cod_aluno join nota_avaliacao on nota_avaliacao.aluno = aluno.cod_aluno WHERE componente_curricular.cod_cc = " +codigoComponente
 	# print(consulta)
 	iteracaoDosDados(consulta)	
 
 
-def componentecurso(matricula):
-	consulta = "SELECT componente.nome as componente, curso.nome FROM nota_avaliacao INNER JOIN componente on componente.cod_componente = nota_avaliacao.componente INNER join avaliacao 	on avaliacao.idavaliacao = nota_avaliacao.avaliacao INNER JOIN diario on avaliacao.diario = diario.cod_diario INNER JOIN professor on professor.idprofessor = diario.professor_principal INNER JOIN componente_curricular on diario.componente = componente_curricular.cod_cc  inner join matriz_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join curso on curso.cod_curso = matriz_curricular.curso WHERE componente.matricula = " +matricula
+def componentecurso(codigoComponente):
+	consulta = "SELECT distinct componente_curricular.nome, curso.nome from curso join matriz_curricular on matriz_curricular.curso = curso.cod_curso join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz WHERE componente_curricular.cod_cc = " +codigoComponente
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
@@ -277,8 +276,8 @@ def cursoAluno(curso):
 	# print(consulta)
 	iteracaoDosDados(consulta)
 	
-def cursoAluno(curso):
-	consulta = "SELECT distinct curso.cod_curso,curso.nome,aluno.nome from curso inner join matriz_curricular on matriz_curricular.curso = curso.cod_curso inner join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz inner join diario on diario.componente = componente_curricular.cod_cc inner join turma on diario.cod_diario = turma.diario inner join matriculas_componente on matriculas_componente.turma = turma.cod_turma inner join aluno on matriculas_componente.aluno = aluno.cod_aluno WHERE curso.cod_curso  = " +curso 
+def cursoProfessor(curso):
+	consulta = "SELECT curso.nome, professor.nome from curso join matriz_curricular on matriz_curricular.curso = curso.cod_curso join componente_curricular on componente_curricular.matriz = matriz_curricular.cod_matriz join diario on diario.componente = componente_curricular.cod_cc  join professor on professor.idprofessor = diario.professor_principal WHERE curso.cod_curso  = " +curso 
 	# print(consulta)
 	iteracaoDosDados(consulta)			
 
@@ -310,19 +309,19 @@ def pesquisarMatriz():
 		MatrizesExpiradas()
 	
 def todasMatrizes():
-	consulta = "SELECT nome, data, situacao FROM matriz_curricular;"
+	consulta = "SELECT nome, date_format(data,'%d-%m-%Y'), situacao FROM matriz_curricular;"
 	# consulta = "SELECT Matriz.cod_Matriz, Matriz.nome from matriz WHERE Matriz.nome LIKE '%"+matriz+"%'"
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
 
 def MatrizesEmVigor():
-	consulta = "SELECT nome, data, situacao FROM matriz_curricular where situacao = 'em vigor'"
+	consulta = "SELECT nome, date_format(data,'%d-%m-%Y'), situacao FROM matriz_curricular where situacao = 'em vigor'"
 	# print(consulta)
 	iteracaoDosDados(consulta)
 
 def MatrizesExpiradas():
-	consulta = "SELECT nome, data, situacao FROM matriz_curricular where situacao = 'expirada'"
+	consulta = "SELECT nome, date_format(data,'%d-%m-%Y'), situacao FROM matriz_curricular where situacao = 'expirada'"
 	# print(consulta)
 	iteracaoDosDados(consulta)		
 
