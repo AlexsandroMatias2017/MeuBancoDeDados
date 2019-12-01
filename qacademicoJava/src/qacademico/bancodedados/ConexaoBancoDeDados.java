@@ -103,6 +103,6 @@ public class ConexaoBancoDeDados
 		// o beforeFirst() [move para posição 0]
 		// o next() [move para o próximo, retorna false se já estiver no último]
 		// o absolute(int) [move para a posição dada, lembrando que dados reais
-		// começam em 1]
+		// começam em 1.
 	}
 }
