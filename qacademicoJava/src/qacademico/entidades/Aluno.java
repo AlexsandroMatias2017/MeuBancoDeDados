@@ -7,7 +7,7 @@ public class Aluno
 	private String sobrenome;
 	private String telefone;
 
-	// Getters
+	// Getters and Setters
 	public int getIdAluno()
 	{
 		return idAluno;
@@ -26,26 +26,5 @@ public class Aluno
 	public String getTelefone()
 	{
 		return telefone;
-	}
-
-	// Setters
-	public void setIdAluno(int idAluno)
-	{
-		this.idAluno = idAluno;
-	}
-
-	public void setNome(String nome)
-	{
-		this.nome = nome;
-	}
-
-	public void setSobrenome(String sobrenome)
-	{
-		this.sobrenome = sobrenome;
-	}
-
-	public void setTelefone(String telefone)
-	{
-		this.telefone = telefone;
 	}
 }
