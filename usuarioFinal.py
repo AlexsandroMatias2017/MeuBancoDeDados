@@ -14,7 +14,6 @@ conexao = mysql.connector.connect(
 	database="sisacad"  
    
 )
-
 cursor = conexao.cursor()
 
 def executeSql(filename):
